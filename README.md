@@ -1,3 +1,5 @@
+# Samichlaus Verein Dietlikon Webseite
+
 - Run development server (`npm run dev`)
 - Use Supabase
   - Links
