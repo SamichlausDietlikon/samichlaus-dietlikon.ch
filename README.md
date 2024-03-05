@@ -3,7 +3,7 @@
 - Run development server (`npm run dev`)
 - Use Supabase
   - Links
-  - Start / Stop Service
+  - Start / Stop Service / Anon key
   - Link Staging Project
   - Make DB changes
   - Use Auth locally
