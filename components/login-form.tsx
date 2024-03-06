@@ -21,11 +21,8 @@ export function LoginForm() {
   async function handleSubmit() {
     const supabase = createClient()
 
-    const { data, error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: 'http://127.0.0.1:3000/visits'
-      }
+    await supabase.auth.signInWithOtp({
+      email
     })
   }
 
