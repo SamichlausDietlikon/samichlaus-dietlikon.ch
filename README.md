@@ -12,6 +12,8 @@
   - Generate TS Types
 
 Local Supabase: http://127.0.0.1:54323
+Local DB URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+Local Mail Testing URL: http://127.0.0.1:54324
 
 Links:
 - https://supabase.com/docs/guides/cli/getting-started#installing-the-supabase-cli
@@ -21,12 +23,26 @@ Commands used:
 ```bash
 supabase start
 
+supabase login
+
+supabase link
+
 npm install
+
+supabase status
 
 supabase stop
 ```
 
 Template .env:
 ```bash
-SUPABASE_ANON_KEY=ey...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=ey...
 ```
+
+> From Shadcn UI are all components.
+
+Checklist before staging/prod:
+
+- [ ] Update local email templates with remote ones
+
+> IMPORTANT: http://localhost:3000 doesn't work the same as http://127.0.0.1:3000
