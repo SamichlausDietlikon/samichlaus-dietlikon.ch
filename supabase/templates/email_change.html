@@ -1,4 +1,4 @@
 <h2>Bestätige die Emailänderung</h2>
 
 <p>Klicke auf diesen Link um deine Emailänderung von {{ .Email }} auf {{ .NewEmail }} zu bestätigen:</p>
-<p><a href="{{ .ConfirmationURL }}">Email ändern</a></p>
+<p><a href="{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=email_change">Email ändern</a></p>

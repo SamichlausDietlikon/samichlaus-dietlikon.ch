@@ -1,4 +1,4 @@
 <h2>Dein Passwort zurücksetzen</h2>
 
 <p>Klicke den Link um das Passwort für deinen Nutzer zurückzusetzen:</p>
-<p><a href="{{ .ConfirmationURL }}">Password zurücksetzen</a></p>
+<p><a href="{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=recovery&next=/path-to-your-update-password-page">Password zurücksetzen</a></p>
