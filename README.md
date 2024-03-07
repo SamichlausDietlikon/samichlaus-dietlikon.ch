@@ -21,17 +21,25 @@ Links:
 
 Commands used:
 ```bash
+npm install
+
 supabase start
 
 supabase login
 
 supabase link
 
-npm install
+# DB pull only as remote project member possible
+supabase db pull && supabase migration up
+# Run after db pull and migration
+supabase gen types typescript --local > types/database.types.ts
 
 supabase status
 
 supabase stop
+
+# After env changes apply then (macOS:)
+source .env
 ```
 
 Template .env:
