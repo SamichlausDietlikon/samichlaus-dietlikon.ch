@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuTrigger, navigationMenuTriggerStyle } from "../../ui/navigation-menu"
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "../../ui/navigation-menu"
 import { cn } from "@/lib/utils"
 import React from "react"
 
@@ -27,8 +27,8 @@ const ListItem = React.forwardRef<
 
 export default function MainNav({ components }: { components: { title: string; href: string}[]} ) {
   return (
-    <div className="hidden space-x-4 sm:-my-px sm:ml-6 sm:flex">
-      <NavigationMenu>
+    <NavigationMenu className="hidden space-x-4 sm:-my-px sm:ml-6 sm:flex">
+      <NavigationMenuList>
         <NavigationMenuItem className={navigationMenuTriggerStyle()}>
           <Link href="/admin/saisons">
             <NavigationMenuLink>
@@ -45,12 +45,12 @@ export default function MainNav({ components }: { components: { title: string; h
                   key={component.title}
                   title={component.title}
                   href={component.href}
-                 />
+                />
               ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-      </NavigationMenu>
-    </div>
+      </NavigationMenuList>
+    </NavigationMenu>
   )
 }
