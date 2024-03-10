@@ -10,7 +10,7 @@ export const UserContext = createContext<{loading: boolean; user: any}>({loading
 
 export function UserProvider({children}: { children: ReactNode }) {
   const [loading, setLoading] = useState<boolean>(true)
-  const [user, setUser] = useState<User & Tables<"users"> | User | null>(null)
+  const [user, setUser] = useState<User & Tables<"users"> & Tables<"user_staff_roles"> | User | null>(null)
 
   const supabase = createClient()
 
@@ -33,16 +33,16 @@ export function UserProvider({children}: { children: ReactNode }) {
   }
 
   async function getCustomUser(user: User) {
-    const { data, error } = await supabase.from("users").select().eq("id", user!.id).limit(1).maybeSingle()
+    const { data } = await supabase.from("users").select().eq("id", user!.id).limit(1).maybeSingle()
+    const { data: role } = await supabase.from("user_staff_roles").select().eq("user_id", user!.id).limit(1).maybeSingle()
 
-    if (!data) {
+    if (!data || !role) {
       setLoading(false)
       return
     }
 
-    // Merge both users together
-    setUser({...user as User, ...data})
-    console.log(user);
+    // Merge all user data together
+    setUser({...user as User, ...role, ...data})
     
     setLoading(false)
   }
