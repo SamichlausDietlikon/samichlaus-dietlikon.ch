@@ -7,7 +7,7 @@ export default function Home() {
   
   return (
     <div>
-      Hello Admin {loading ? "Loading..." : user.email}
+      Hello Admin {loading ? "Loading..." : user!.email}
     </div>
   );
 }
