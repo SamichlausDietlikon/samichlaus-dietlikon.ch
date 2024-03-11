@@ -9,8 +9,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import VillageFormDialog from "@/components/villages/village-form-dialog";
 import useUser from "@/hooks/useUser";
 import { createClient } from "@/lib/supabase/client";
+import { FullUser } from "@/types/common.types";
 import { Tables } from "@/types/database.types";
 import { useEffect, useState } from "react";
 import { toast } from "sonner"
@@ -51,18 +53,24 @@ export default function Villages() {
         <TableHeader>
           <TableRow>
             <TableHead>Dorf</TableHead>
-            <TableHead className="text-right">Aktionen</TableHead>
+            <TableHead className="text-right">
+              <VillageFormDialog />
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {villages?.map((village) => (
             <TableRow>
               <TableCell>{village.name}</TableCell>
-              {/* TODO */}
               <TableCell className="text-right">
-                <Button variant="link" className="text-red-400 hover:text-red-500" onClick={() => handleDelete(village.id)}>
-                  Delete
-                </Button>
+                {(user as FullUser).staff_role === "admin" && (
+                  <>
+                    <VillageFormDialog village={village} />
+                    <Button variant="link" className="text-red-400 hover:text-red-500" onClick={() => handleDelete(village.id)}>
+                      Löschen 
+                    </Button>  
+                  </>
+                )}
               </TableCell>
             </TableRow>
           ))}
