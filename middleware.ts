@@ -24,12 +24,12 @@ export async function middleware(request: NextRequest) {
     return response
   }
 
-  const customUser = await supabase.from("user_staff_roles").select("staff_role").eq("user_id", session.user.id).limit(1).maybeSingle();
+  const { data: customUser} = await supabase.from("user_staff_roles").select("staff_role").eq("id", session.user.id).limit(1).maybeSingle();
   
   if (request.nextUrl.pathname.startsWith('/auth/login')) {
-    if(customUser && customUser.data?.staff_role) {
+    if(customUser?.staff_role) {
       // TODO: If custom fields not filled out, redirect to setup form
-
+    
       return NextResponse.redirect(new URL('/admin', request.url))
     }
 
