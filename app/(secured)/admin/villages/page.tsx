@@ -33,7 +33,7 @@ export default function Villages() {
   const supabase = createClient()
 
   async function handleDelete(id: number) {
-    const {count, data, error, status, statusText} = await supabase.from("villages").delete().eq("id", id)
+    const {status} = await supabase.from("villages").delete().eq("id", id)
 
     if(status === 204) {
       setVillages(villages.filter(village => village.id !== id))
