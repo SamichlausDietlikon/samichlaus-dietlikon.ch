@@ -641,26 +641,26 @@ export type Database = {
       user_staff_roles: {
         Row: {
           created_at: string
+          id: string
           staff_role: Database["public"]["Enums"]["staff_roles"]
           updated_at: string
-          user_id: string
         }
         Insert: {
           created_at?: string
+          id: string
           staff_role: Database["public"]["Enums"]["staff_roles"]
           updated_at?: string
-          user_id: string
         }
         Update: {
           created_at?: string
+          id?: string
           staff_role?: Database["public"]["Enums"]["staff_roles"]
           updated_at?: string
-          user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "public_user_staff_roles_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: "user_staff_roles_id_fkey"
+            columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]

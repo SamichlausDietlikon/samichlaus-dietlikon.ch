@@ -32,7 +32,7 @@ export function UserProvider({children}: { children: ReactNode }) {
 
   async function getCustomUser(user: User) {
     const { data } = await supabase.from("users").select().eq("id", user!.id).limit(1).maybeSingle()
-    const { data: role } = await supabase.from("user_staff_roles").select().eq("user_id", user!.id).limit(1).maybeSingle()
+    const { data: role } = await supabase.from("user_staff_roles").select().eq("id", user!.id).limit(1).maybeSingle()
 
     if (!data || !role) {
       setLoading(false)
