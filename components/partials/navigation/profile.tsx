@@ -18,7 +18,7 @@ export default function Profile() {
     <div className="text-sm my-auto">Loading...</div>
   ) : (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center text-sm">
+      <DropdownMenuTrigger className="flex items-baseline my-auto text-sm">
         My Name
         <ChevronDownIcon
           className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
