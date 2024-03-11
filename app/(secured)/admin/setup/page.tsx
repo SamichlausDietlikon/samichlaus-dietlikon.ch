@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { createClient } from "@/lib/supabase/client"
 
-export default function Login() {
+export default function Setup() {
   const [email, setEmail] = useState("")
 
   async function handleSubmit() {
@@ -24,14 +24,12 @@ export default function Login() {
     await supabase.auth.signInWithOtp({
       email
     })
-  }
-  
-  return (
+  }  return (
     <div className="w-full h-screen flex justify-center items-center">
       <Card className="w-[400px]">
         <CardHeader>
-          <CardTitle>Als Nutzer anmelden</CardTitle>
-          <CardDescription>Erhalte einen Anmeldelink per Email umd dich anzumelden.</CardDescription>
+          <CardTitle>Einrichtung abschliessen</CardTitle>
+          <CardDescription>Folgende Daten müssen ergänzt werden um dein Mitglieder Konto zu aktivieren.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid w-full items-center gap-4">
@@ -47,5 +45,5 @@ export default function Login() {
         </CardFooter>
       </Card>
     </div>
-  );
+  )
 }
