@@ -31,6 +31,8 @@ supabase link
 
 # DB pull only as remote project member possible
 supabase db pull && supabase migration up
+
+supabase db pull --local
 # Run after db pull and migration
 supabase gen types typescript --local > types/database.types.ts
 
