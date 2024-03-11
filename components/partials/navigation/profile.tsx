@@ -19,7 +19,7 @@ export default function Profile() {
   ) : (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-baseline my-auto text-sm">
-        My Name
+        Mein Name 
         <ChevronDownIcon
           className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
           aria-hidden="true"

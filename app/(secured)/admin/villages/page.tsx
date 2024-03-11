@@ -48,7 +48,7 @@ export default function Villages() {
     <div>Loading...</div>
   ) : (
     <section className="max-w-7xl m-auto px-8">
-      <h1 className="text-2xl my-8">Villages</h1>
+      <h1 className="text-2xl my-8">Dörfer</h1>
       <Table>
         <TableHeader>
           <TableRow>
