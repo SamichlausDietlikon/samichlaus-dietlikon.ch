@@ -16,7 +16,7 @@ import { Button } from "../ui/button"
 import { createClient } from "@/lib/supabase/client"
 import {toast} from "sonner"
 
-export default function ResponsibilityFormDialog({ responsibility }: { responsibility?: Tables<"responsibilities"> }) {
+export default function ResponsibilityFormDialog({ responsibility, refetch, setRefetch}: { responsibility?: Tables<"responsibilities">, refetch: boolean, setRefetch: (value: boolean) => void}) {
   const [open, setOpen] = useState(false)
   const [responsibilityName, setResponsibilityName] = useState(responsibility?.name || "")
   const [responsibilityTimeOverlapping, setResponsibilityTimeOverlapping] = useState(responsibility?.time_overlapping || false)
@@ -35,6 +35,7 @@ export default function ResponsibilityFormDialog({ responsibility }: { responsib
     if(status === 201) {
       toast.success(`Funktion ${responsibilityName} erfolgreich erstellt`)
       resetAndClose()
+      setRefetch(!refetch)
     } else {
       toast.error(`Fehler: ${JSON.stringify(error)}`)
     }
@@ -45,7 +46,8 @@ export default function ResponsibilityFormDialog({ responsibility }: { responsib
    
     if(status === 204) {
       toast.success(`Funktion ${responsibilityName} erfolgreich gespeichert`)
-      resetAndClose()
+      setOpen(false)
+      setRefetch(!refetch)
     } else {
       toast.error(`Fehler: ${JSON.stringify(error)}`)
     }

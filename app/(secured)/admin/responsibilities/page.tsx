@@ -19,6 +19,7 @@ import { toast } from "sonner"
 
 export default function Responsibilities() {
   const [responsibilities, setResponsibilities] = useState<[]|Tables<"responsibilities">[]>([])
+  const [refetch, setRefetch] = useState<boolean>(false)
 
   const { loading, user } = useUser();
 
@@ -31,7 +32,7 @@ export default function Responsibilities() {
 
       setResponsibilities(data)
     })
-  }, [])
+  }, [refetch])
 
   const supabase = createClient()
 
@@ -55,7 +56,7 @@ export default function Responsibilities() {
             <TableHead>Funktion</TableHead>
             <TableHead>Zeit überlappend</TableHead>
             <TableHead className="text-right">
-              <ResponsibilityFormDialog />
+              <ResponsibilityFormDialog refetch={refetch} setRefetch={setRefetch}/>
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -67,7 +68,7 @@ export default function Responsibilities() {
               <TableCell className="text-right">
                 {(user as FullUser).staff_role === "admin" && (
                   <>
-                    <ResponsibilityFormDialog responsibility={responsibility} />
+                    <ResponsibilityFormDialog refetch={refetch} setRefetch={setRefetch} responsibility={responsibility} />
                     <Button variant="link" className="text-red-400 hover:text-red-500" onClick={() => handleDelete(responsibility.id)}>
                       Löschen
                     </Button>  

@@ -19,11 +19,12 @@ import { toast } from "sonner"
 
 export default function Villages() {
   const [villages, setVillages] = useState<[]|Tables<"villages">[]>([])
+  const [refetch, setRefetch] = useState<boolean>(false)
 
   const { loading, user } = useUser();
 
   useEffect(() => {
-    supabase.from("villages").select().then(({ data, error }) => {
+    supabase.from("villages").select().order("name").then(({ data, error }) => {
       if (error) {
         console.error(error)
         return
@@ -31,7 +32,7 @@ export default function Villages() {
 
       setVillages(data)
     })
-  }, [])
+  }, [refetch])
 
   const supabase = createClient()
 
@@ -54,7 +55,7 @@ export default function Villages() {
           <TableRow>
             <TableHead>Dorf</TableHead>
             <TableHead className="text-right">
-              <VillageFormDialog />
+              <VillageFormDialog refetch={refetch} setRefetch={setRefetch} />
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -65,7 +66,7 @@ export default function Villages() {
               <TableCell className="text-right">
                 {(user as FullUser).staff_role === "admin" && (
                   <>
-                    <VillageFormDialog village={village} />
+                    <VillageFormDialog refetch={refetch} setRefetch={setRefetch} village={village} />
                     <Button variant="link" className="text-red-400 hover:text-red-500" onClick={() => handleDelete(village.id)}>
                       Löschen 
                     </Button>  

@@ -16,7 +16,7 @@ import { Button } from "../ui/button"
 import { createClient } from "@/lib/supabase/client"
 import {toast} from "sonner"
 
-export default function VillageFormDialog({ village }: { village?: Tables<"villages"> }) {
+export default function VillageFormDialog({ village, refetch, setRefetch }: { village?: Tables<"villages">, refetch: boolean, setRefetch: (value: boolean) => void}) {
   const [open, setOpen] = useState(false)
   const [villageName, setVillageName] = useState(village?.name || "")
   
@@ -33,6 +33,7 @@ export default function VillageFormDialog({ village }: { village?: Tables<"villa
     if(status === 201) {
       toast.success(`Dorf ${villageName} erfolgreich erstellt`)
       resetAndClose()
+      setRefetch(!refetch)
     } else {
       toast.error(`Fehler: ${JSON.stringify(error)}`)
     }
@@ -43,7 +44,8 @@ export default function VillageFormDialog({ village }: { village?: Tables<"villa
    
     if(status === 204) {
       toast.success(`Dorf ${villageName} erfolgreich gespeichert`)
-      resetAndClose()
+      setOpen(false)
+      setRefetch(!refetch)
     } else {
       toast.error(`Fehler: ${JSON.stringify(error)}`)
     }
