@@ -1,5 +1,6 @@
 "use client"
 
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -31,6 +32,14 @@ export default function Villages() {
 
   const supabase = createClient()
 
+  async function handleDelete(id: number) {
+    const {count, data, error, status, statusText} = await supabase.from("villages").delete().eq("id", id)
+
+    if(status === 204) {
+      setVillages(villages.filter(village => village.id !== id))
+    }
+  }
+
   return loading ? (
     <div>Loading...</div>
   ) : (
@@ -48,7 +57,11 @@ export default function Villages() {
             <TableRow>
               <TableCell>{village.name}</TableCell>
               {/* TODO */}
-              <TableCell className="text-right">Delete</TableCell>
+              <TableCell className="text-right">
+                <Button variant="link" className="text-red-400 hover:text-red-500" onClick={() => handleDelete(village.id)}>
+                  Delete
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
