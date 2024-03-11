@@ -13,6 +13,7 @@ import useUser from "@/hooks/useUser";
 import { createClient } from "@/lib/supabase/client";
 import { Tables } from "@/types/database.types";
 import { useEffect, useState } from "react";
+import { toast } from "sonner"
 
 export default function Villages() {
   const [villages, setVillages] = useState<[]|Tables<"villages">[]>([])
@@ -36,6 +37,7 @@ export default function Villages() {
     const {status} = await supabase.from("villages").delete().eq("id", id)
 
     if(status === 204) {
+      toast.success("Dorf erfolgreich gelöscht")
       setVillages(villages.filter(village => village.id !== id))
     }
   }
