@@ -23,6 +23,8 @@ export default function Responsibilities() {
 
   const { loading, user } = useUser();
 
+  const supabase = createClient()
+  
   useEffect(() => {
     supabase.from("responsibilities").select().then(({ data, error }) => {
       if (error) {
@@ -32,9 +34,8 @@ export default function Responsibilities() {
 
       setResponsibilities(data)
     })
-  }, [refetch])
+  }, [refetch, supabase])
 
-  const supabase = createClient()
 
   async function handleDelete(id: number) {
     const {status} = await supabase.from("responsibilities").delete().eq("id", id)
@@ -64,7 +65,7 @@ export default function Responsibilities() {
         </TableHeader>
         <TableBody>
           {responsibilities?.map((responsibility) => (
-            <TableRow>
+            <TableRow key={responsibility.id}>
               <TableCell>{responsibility.name}</TableCell>
               <TableCell>{responsibility.time_overlapping ? "Ja" : "Nein"}</TableCell>
               <TableCell className="text-right">

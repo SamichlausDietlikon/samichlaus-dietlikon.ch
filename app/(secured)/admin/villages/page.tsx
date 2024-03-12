@@ -23,6 +23,8 @@ export default function Villages() {
 
   const { loading, user } = useUser();
 
+  const supabase = createClient()
+
   useEffect(() => {
     supabase.from("villages").select().order("name").then(({ data, error }) => {
       if (error) {
@@ -32,9 +34,8 @@ export default function Villages() {
 
       setVillages(data)
     })
-  }, [refetch])
+  }, [refetch, supabase])
 
-  const supabase = createClient()
 
   async function handleDelete(id: number) {
     const {status} = await supabase.from("villages").delete().eq("id", id)
@@ -63,7 +64,7 @@ export default function Villages() {
         </TableHeader>
         <TableBody>
           {villages?.map((village) => (
-            <TableRow>
+            <TableRow key={village.id}>
               <TableCell>{village.name}</TableCell>
               <TableCell className="text-right">
                 {(user as FullUser).staff_role === "admin" && (
