@@ -55,7 +55,9 @@ export default function Villages() {
           <TableRow>
             <TableHead>Dorf</TableHead>
             <TableHead className="text-right">
-              <VillageFormDialog refetch={refetch} setRefetch={setRefetch} />
+              {(user as FullUser).staff_role === "admin" && (
+                <VillageFormDialog refetch={refetch} setRefetch={setRefetch} />
+              )}
             </TableHead>
           </TableRow>
         </TableHeader>

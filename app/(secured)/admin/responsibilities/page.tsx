@@ -56,7 +56,9 @@ export default function Responsibilities() {
             <TableHead>Funktion</TableHead>
             <TableHead>Zeit überlappend</TableHead>
             <TableHead className="text-right">
-              <ResponsibilityFormDialog refetch={refetch} setRefetch={setRefetch}/>
+              {(user as FullUser).staff_role === "admin" && (
+                <ResponsibilityFormDialog refetch={refetch} setRefetch={setRefetch}/>
+              )}
             </TableHead>
           </TableRow>
         </TableHeader>
