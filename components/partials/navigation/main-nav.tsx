@@ -4,15 +4,11 @@ import { cn } from "@/lib/utils"
 import React from "react"
 import Profile from "./profile"
 
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
+function ListItem({ className, title, children, ...props }: { [prop: string]: string}) {
   return (
     <li>
       <NavigationMenuLink asChild>
         <a
-          ref={ref}
           className={cn(
             "block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
@@ -24,7 +20,7 @@ const ListItem = React.forwardRef<
       </NavigationMenuLink>
     </li>
   )
-})
+}
 
 export default function MainNav({ components }: { components: { title: string; href: string}[]} ) {
   return (
