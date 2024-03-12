@@ -14,17 +14,29 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { createClient } from "@/lib/supabase/client"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 export default function Setup() {
-  const [email, setEmail] = useState("")
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+
+  const router = useRouter()
 
   async function handleSubmit() {
     const supabase = createClient()
 
-    await supabase.auth.signInWithOtp({
-      email
-    })
-  }  return (
+    const {status, error} = await supabase.from("users").insert({id: (await supabase.auth.getUser()).data.user!.id, first_name: firstName, last_name: lastName, store_email: true})
+
+    if(status === 201) {
+      toast.success("Einrichtung erfolgreich abgeschlossen")
+      return router.push("/admin")
+    }
+
+    toast.error(`Fehler: ${JSON.stringify(error)}`)    
+  }
+
+  return (
     <div className="w-full h-screen flex justify-center items-center">
       <Card className="w-[400px]">
         <CardHeader>
@@ -34,14 +46,17 @@ export default function Setup() {
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="email">Email</Label>
-              <Input type="email" id="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Deine Email Adresse" />
+              <Label htmlFor="first_name">Vorname</Label>
+              <Input type="first_name" id="first_name" value={firstName} onChange={e => setFirstName(e.target.value)} placeholder="Dein Vorname" />
+            </div>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="last_name">Nachname</Label>
+              <Input type="last_name" id="last_name" value={lastName} onChange={e => setLastName(e.target.value)} placeholder="Dein Nachname" />
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="ghost">Abbrechen</Button>
-          <Button onClick={() => handleSubmit()}>Anmelden</Button>
+        <CardFooter className="float-right">
+          <Button onClick={() => handleSubmit()}>Abschliessen</Button>
         </CardFooter>
       </Card>
     </div>
