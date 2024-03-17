@@ -67,6 +67,13 @@ export type Database = {
             foreignKeyName: "public_audits_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "all_users_full"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_audits_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
@@ -165,6 +172,13 @@ export type Database = {
             columns: ["season_id"]
             isOneToOne: false
             referencedRelation: "seasons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_season_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "all_users_full"
             referencedColumns: ["id"]
           },
           {
@@ -284,6 +298,13 @@ export type Database = {
             columns: ["season_tour_id"]
             isOneToOne: false
             referencedRelation: "season_tours"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_season_tour_roles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "all_users_full"
             referencedColumns: ["id"]
           },
           {
@@ -541,6 +562,13 @@ export type Database = {
             foreignKeyName: "public_season_visits_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "all_users_full"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_season_visits_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
@@ -725,10 +753,33 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      all_users_full: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          first_name: string | null
+          id: string | null
+          last_name: string | null
+          staff_role: Database["public"]["Enums"]["staff_roles"] | null
+          store_email: boolean | null
+          updated_at: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_users_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
-      [_ in never]: never
+      get_staff_users: {
+        Args: Record<PropertyKey, never>
+        Returns: string[]
+      }
     }
     Enums: {
       staff_roles: "admin" | "tour_manager" | "staff"
