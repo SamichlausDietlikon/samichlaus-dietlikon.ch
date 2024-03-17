@@ -40,7 +40,7 @@ export function UserProvider({children}: { children: ReactNode }) {
     }
 
     // Merge all user data together
-    setUser({...user as User, ...role, ...data})
+    setUser({ "email": user?.email, ...role, ...data})
     
     setLoading(false)
   }
