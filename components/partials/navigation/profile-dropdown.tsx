@@ -9,12 +9,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import useUser from "@/hooks/useUser";
+import { createClient } from "@/lib/supabase/client";
 import { FullUser } from "@/types/common.types";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
-export default function Profile() {
+export default function ProfileDropdwon() {
   const { loading, user } = useUser();
 
+  const supabase = createClient()
+   
   return loading ? (
     <div className="text-sm my-auto">Loading...</div>
   ) : (
@@ -29,8 +33,8 @@ export default function Profile() {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>{user!.email}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Log out</DropdownMenuItem>
+        <DropdownMenuItem ><Link href="/admin/profile" >Profile</Link></DropdownMenuItem>
+        <DropdownMenuItem onClick={() => supabase.auth.signOut()}>Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

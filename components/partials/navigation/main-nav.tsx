@@ -2,7 +2,7 @@ import Link from "next/link"
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "../../ui/navigation-menu"
 import { cn } from "@/lib/utils"
 import React from "react"
-import Profile from "./profile"
+import ProfileDropdwon from "./profile-dropdown"
 
 function ListItem({ className, title, children, ...props }: { [prop: string]: string}) {
   return (
@@ -50,7 +50,7 @@ export default function MainNav({ components }: { components: { title: string; h
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <Profile />
+      <ProfileDropdwon />
     </div>
   )
 }
