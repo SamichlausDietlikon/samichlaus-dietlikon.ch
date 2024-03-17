@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
   const { data: { session }, error } = await supabase.auth.getSession()
 
   if(error) {
-    // TODO: Call sign-out function to clean up session
+    supabase.auth.signOut()
     console.error(`[Error] ${error}`)
     return NextResponse.error()
   }
