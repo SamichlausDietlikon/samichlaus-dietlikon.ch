@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import useUser from "@/hooks/useUser"
@@ -9,6 +10,13 @@ import { createClient } from "@/lib/supabase/client"
 import { FullUser } from "@/types/common.types"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { InfoCircledIcon } from "@radix-ui/react-icons"
 
 export default function Profile() {
   const supabase = createClient()
@@ -16,11 +24,13 @@ export default function Profile() {
 
   const [firstName, setFirstName] = useState("") 
   const [lastName, setLastName] = useState("") 
+  const [storeEmail, setStoreEmail] = useState(false) 
 
   useEffect(() => {
     if(!loading) {
       setFirstName((user as FullUser).first_name)
       setLastName((user as FullUser).last_name)
+      setStoreEmail((user as FullUser).store_email)
     }
   }, [loading])
 
@@ -32,7 +42,8 @@ export default function Profile() {
 
     const {status, error} = await supabase.from("users").update({
       first_name: firstName,
-      last_name: lastName
+      last_name: lastName,
+      store_email: storeEmail
     }).eq("id", user!.id) 
 
     if(status === 204) {
@@ -55,7 +66,7 @@ export default function Profile() {
           <CardTitle>Persönliche Informationen</CardTitle>
           <CardDescription>Bearbeite deine persönlichen Informationen.</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex flex-col gap-4">
           <div className="flex w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5 w-full">
               <Label htmlFor="firstName">Vorname</Label>
@@ -64,6 +75,27 @@ export default function Profile() {
             <div className="flex flex-col space-y-1.5 w-full">
               <Label htmlFor="lastName">Vorname</Label>
               <Input type="text" id="lastName" value={lastName} onChange={e => setLastName(e.target.value)} placeholder="Mustermann" />
+            </div>
+          </div>
+          <div className="items-top flex space-x-2">
+            <Checkbox id="store_email" checked={storeEmail} onClick={() => setStoreEmail(!storeEmail)} />
+            <div className="grid gap-1.5 leading-none">
+              <Label
+                htmlFor="store_email"
+                className="flex items-center gap-1"
+              >
+                Email darf gespeichert werden
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger className="border-dashed border-b border-black">
+                      <InfoCircledIcon />
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-96">
+                      <p>Deine Email Adresse darf auch nach der aktuellen Saison gespeichert werden zu Benachrichtigungszwecken.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </Label>
             </div>
           </div>
         </CardContent>
