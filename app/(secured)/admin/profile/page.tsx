@@ -10,13 +10,7 @@ import { createClient } from "@/lib/supabase/client"
 import { FullUser } from "@/types/common.types"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { InfoCircledIcon } from "@radix-ui/react-icons"
+import InfoTooltip from "@/components/common/info-tooltip"
 
 export default function Profile() {
   const supabase = createClient()
@@ -85,16 +79,7 @@ export default function Profile() {
                 className="flex items-center gap-1"
               >
                 Email darf gespeichert werden
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger className="border-dashed border-b border-black">
-                      <InfoCircledIcon />
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-96">
-                      <p>Deine Email Adresse darf auch nach der aktuellen Saison gespeichert werden zu Benachrichtigungszwecken.</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                <InfoTooltip text="Deine Email Adresse darf auch nach der aktuellen Saison gespeichert werden zu Benachrichtigungszwecken." />
               </Label>
             </div>
           </div>
