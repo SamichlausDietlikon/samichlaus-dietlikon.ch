@@ -29,6 +29,7 @@ export default function Villages() {
     supabase.from("villages").select().order("name").then(({ data, error }) => {
       if (error) {
         console.error(error)
+        toast.error(`Fehler: ${JSON.stringify(error)}`)
         return
       }
 
