@@ -652,21 +652,21 @@ export type Database = {
       tour_templates: {
         Row: {
           created_at: string
-          description: string
+          description: string | null
           id: number
           title: string
           updated_at: string
         }
         Insert: {
           created_at?: string
-          description: string
+          description?: string | null
           id?: number
           title: string
           updated_at?: string
         }
         Update: {
           created_at?: string
-          description?: string
+          description?: string | null
           id?: number
           title?: string
           updated_at?: string
