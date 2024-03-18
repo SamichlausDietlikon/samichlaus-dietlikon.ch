@@ -18,7 +18,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <UserProvider>
           {children}
-          <Toaster richColors />
+          <Toaster closeButton richColors />
         </UserProvider>
       </body>
     </html>
