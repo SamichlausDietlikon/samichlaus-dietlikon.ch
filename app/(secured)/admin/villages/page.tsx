@@ -39,12 +39,15 @@ export default function Villages() {
 
 
   async function handleDelete(id: number) {
-    const {status} = await supabase.from("villages").delete().eq("id", id)
+    const {status, error} = await supabase.from("villages").delete().eq("id", id)
 
     if(status === 204) {
       toast.success("Dorf erfolgreich gelöscht")
       setVillages(villages.filter(village => village.id !== id))
+      return
     }
+
+    toast.error(`Fehler: ${JSON.stringify(error)}`)
   }
 
   return loading ? (
