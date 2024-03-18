@@ -34,6 +34,18 @@ export default function Templates() {
     getTemplatesData()
   }, [refetch, supabase])
 
+  async function handleDelete(templateId: number) {
+    const {status, error} = await supabase.from("tour_templates").delete().eq("id", templateId)
+
+    if(status === 204) {
+      toast.success("Vorlage erfolgreich gelöscht")
+      setTemplates(templates!.filter(template => template.id !== templateId))
+      return
+    }
+
+    toast.error(`Fehler: ${JSON.stringify(error)}`)
+  }
+
   return loading || !templates ? (
     <div>Loading...</div> ) : (
       <section className="max-w-7xl m-auto px-8">
@@ -53,17 +65,16 @@ export default function Templates() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {templates?.map((template) => (
+            {templates.map((template) => (
               <TableRow key={template.id}>
                 <TableCell>{template.title}</TableCell>
-                <TableCell className="max-w-[28ch] text-nowrap overflow-hidden overflow-ellipsis">{template.description}</TableCell>
+                <TableCell className="max-w-[28ch] text-nowrap overflow-hidden overflow-ellipsis">{template.description ?? "-"}</TableCell>
                 <TableCell>{template.newest_version ? <Badge variant="default">v{template.newest_version}</Badge> : <em>No version released yet</em>}</TableCell>
                 <TableCell>{template.latest_tag ? <Badge variant={template.latest_tag}>{template.latest_tag}</Badge> : <em>No version created yet</em>}</TableCell>
                 <TableCell className="text-right">
                   {(user as FullUser).staff_role === "admin" && (
                     <>
-                      {/* <VillageFormDialog refetch={refetch} setRefetch={setRefetch} village={village} /> */}
-                      <Button variant="link" className="text-red-400 hover:text-red-500">
+                      <Button variant="link" className="text-red-400 hover:text-red-500" onClick={() => handleDelete(template.id as number)}>
                         Löschen
                       </Button>  
                     </>

@@ -19,27 +19,33 @@ import { Textarea } from "../ui/textarea"
 
 export default function TemplateFormDialog({ refetch, setRefetch }: { refetch: boolean, setRefetch: (value: boolean) => void}) {
   const [open, setOpen] = useState(false)
-  const [templateTitle, setTemplateTitle] = useState("")
-  const [templateDescription, setTemplateDescription] = useState("")
+  const [templateTitle, setTemplateTitle] = useState<null|string>(null)
+  const [templateDescription, setTemplateDescription] = useState<null|string>(null)
   
   const supabase = createClient()
 
   function resetAndClose() {
-    setTemplateTitle("")
-    setTemplateDescription("")
+    setTemplateTitle(null)
+    setTemplateDescription(null)
     setOpen(false)
   }
 
   async function handleCreate() {
-   const {status, error} = await supabase.from("tour_templates").insert({ title: templateTitle, description: templateDescription})
+    if(!templateTitle) {
+      toast.error("Alle benötigte Felder muss ausgefüllt werden")
+      return
+    }
+    
+    const {status, error} = await supabase.from("tour_templates").insert({ title: templateTitle, description: templateDescription})
    
     if(status === 201) {
       toast.success(`Vorlage ${templateTitle} erfolgreich erstellt`)
       resetAndClose()
       setRefetch(!refetch)
-    } else {
-      toast.error(`Fehler: ${JSON.stringify(error)}`)
-    }
+      return
+    } 
+    
+    toast.error(`Fehler: ${JSON.stringify(error)}`)
   }
 
   return (
@@ -53,11 +59,11 @@ export default function TemplateFormDialog({ refetch, setRefetch }: { refetch: b
         </DialogHeader>
         <div>
           <Label>Titel</Label>
-          <Input type="text" value={templateTitle} onChange={e => setTemplateTitle(e.target.value)} placeholder="Hausbesuche" />
+          <Input type="text" value={templateTitle ?? ""} onChange={e => setTemplateTitle(e.target.value)} placeholder="Hausbesuche" />
         </div>
         <div>
           <Label>Beschreibung</Label>
-          <Textarea value={templateDescription} onChange={e => setTemplateDescription(e.target.value)} placeholder="Für Hausbesuche bei den Kindern" />
+          <Textarea value={templateDescription ?? ""} onChange={e => setTemplateDescription(e.target.value)} placeholder="Für Hausbesuche bei den Kindern" />
         </div>
         <DialogFooter>
           <Button variant="link" onClick={() => resetAndClose()}>Abbrechen</Button>
