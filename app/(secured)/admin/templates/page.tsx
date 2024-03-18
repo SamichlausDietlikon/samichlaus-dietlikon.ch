@@ -7,7 +7,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import useUser from "@/hooks/useUser"
 import { createClient } from "@/lib/supabase/client"
 import { FullUser } from "@/types/common.types"
-import { Enums, Tables } from "@/types/database.types"
+import { Tables } from "@/types/database.types"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
@@ -76,9 +77,12 @@ export default function Templates() {
                     <>
                       <Button variant="link" className="text-red-400 hover:text-red-500" onClick={() => handleDelete(template.id as number)}>
                         Löschen
-                      </Button>  
+                      </Button>
                     </>
                   )}
+                  <Link href={`/admin/templates/${template.id}`} className="text-primary underline-offset-4 hover:underline text-sm font-medium">
+                    Anzeigen
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
