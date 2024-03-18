@@ -16,10 +16,13 @@ import { Label } from "@/components/ui/label"
 import { createClient } from "@/lib/supabase/client"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import useUser from "@/hooks/useUser"
 
 export default function Setup() {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
+
+  const {refetch, setRefetch} = useUser()
 
   const router = useRouter()
 
@@ -30,6 +33,7 @@ export default function Setup() {
 
     if(status === 201) {
       toast.success("Einrichtung erfolgreich abgeschlossen")
+      setRefetch(!refetch)
       return router.push("/admin")
     }
 

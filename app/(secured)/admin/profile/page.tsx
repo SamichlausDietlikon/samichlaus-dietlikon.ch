@@ -8,10 +8,11 @@ import useUser from "@/hooks/useUser"
 import { createClient } from "@/lib/supabase/client"
 import { FullUser } from "@/types/common.types"
 import { useEffect, useState } from "react"
+import { toast } from "sonner"
 
 export default function Profile() {
   const supabase = createClient()
-  const { loading, user } = useUser();
+  const { loading, user, refetch, setRefetch} = useUser();
 
   const [firstName, setFirstName] = useState("") 
   const [lastName, setLastName] = useState("") 
@@ -23,8 +24,24 @@ export default function Profile() {
     }
   }, [loading])
 
-  function handleSave() {
-    console.log("Hey")
+  async function handleSave() {
+    if(!firstName || !lastName) {
+      toast.error("Alle erforderlichen Felder müssen ausgefüllt werden")
+      return
+    }
+
+    const {status, error} = await supabase.from("users").update({
+      first_name: firstName,
+      last_name: lastName
+    }).eq("id", user!.id) 
+
+    if(status === 204) {
+      toast.success("Deine persönlichen Informationen wurden erfolgreich gespeichert")
+      setRefetch(!refetch)
+      return
+    }
+
+    toast.error(`Fehler: ${JSON.stringify(error)}`)
   }
 
   return loading ? (

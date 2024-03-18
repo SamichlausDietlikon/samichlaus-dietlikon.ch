@@ -2,16 +2,15 @@
 
 import { createClient } from '@/lib/supabase/client';
 import { FullUser } from '@/types/common.types';
-import { Tables } from '@/types/database.types';
 import { User } from '@supabase/supabase-js';
-import { ReactNode, createContext, useEffect, useState } from 'react';
+import { Dispatch, ReactNode, SetStateAction, createContext, useEffect, useState } from 'react';
 
-// TODO: Add right user type
-export const UserContext = createContext<{loading: boolean; user: FullUser | User | null}>({loading: true, user: null});
+export const UserContext = createContext<{loading: boolean; user: FullUser | User | null; refetch: boolean, setRefetch: Dispatch<SetStateAction<boolean>>}>({loading: true, user: null, refetch: false, setRefetch: () => {}});
 
 export function UserProvider({children}: { children: ReactNode }) {
   const [loading, setLoading] = useState<boolean>(true)
   const [user, setUser] = useState<FullUser | User | null>(null)
+  const [refetch, setRefetch] = useState(false)
 
   const supabase = createClient()
 
@@ -47,10 +46,10 @@ export function UserProvider({children}: { children: ReactNode }) {
 
   useEffect(() => {
     getUser()
-  }, [])
+  }, [refetch])
 
   return (
-    <UserContext.Provider value={{ loading, user }}>
+    <UserContext.Provider value={{ loading, user, refetch, setRefetch }}>
       {children}
     </UserContext.Provider>
   );
