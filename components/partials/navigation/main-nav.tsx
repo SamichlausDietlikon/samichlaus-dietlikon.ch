@@ -28,7 +28,7 @@ export default function MainNav({ components }: { components: { title: string; h
       <NavigationMenu className="hidden space-x-4 sm:-my-px sm:ml-6 sm:flex">
         <NavigationMenuList>
           <NavigationMenuItem className={navigationMenuTriggerStyle()}>
-            <Link href="/admin/saisons">
+            <Link href="/admin/seasons">
               <NavigationMenuLink>
                 Saisons
               </NavigationMenuLink>
