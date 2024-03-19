@@ -36,7 +36,7 @@ export default function Sidebar() {
     setChosenSeason(seasons!.filter(season => season.id === parseInt(seasonId))[0])
     // Persist the current season route (e.g. .../members) and only change seasonId
     let redirectTo = pathname.replace(/\/admin\/seasons(\/\d)?/g,'')
-    redirectTo = `/admins/seasons/${seasonId}${redirectTo}`
+    redirectTo = `/admin/seasons/${seasonId}${redirectTo}`
     
     return router.push(redirectTo)
   }
@@ -49,7 +49,7 @@ export default function Sidebar() {
         <div>
           <Select onValueChange={chosenSeason => handleChoose(chosenSeason)} defaultValue={chosenSeason?.id.toString() || undefined}>
             <SelectTrigger className="my-2">
-              <SelectValue placeholder="Tag auswählen" />
+              <SelectValue placeholder="Saison auswählen" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
