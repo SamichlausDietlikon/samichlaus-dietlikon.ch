@@ -10,3 +10,9 @@ export const staffRoles = {
   "tour_manager": "Touren Management",
   "staff": "Mitglied",
 }
+
+export const tourTemplateTags = {
+  "development": "Development",
+  "released": "Released",
+  "deprecated": "Deprecated",
+}
