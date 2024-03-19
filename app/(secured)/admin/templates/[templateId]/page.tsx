@@ -48,7 +48,7 @@ export default function SingleTemplate() {
       return
     }
 
-    toast.error(`Fehler: ${error}`)
+    toast.error(`Fehler: ${JSON.stringify(error)}`)
   }
 
   return template && (

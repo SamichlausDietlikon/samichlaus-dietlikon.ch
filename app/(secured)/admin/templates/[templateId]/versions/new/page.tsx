@@ -10,7 +10,7 @@ import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
-export default function newVersion() {
+export default function NewVersion() {
   const { templateId } = useParams()
 
   const {loading, user} = useUser()
@@ -38,7 +38,7 @@ export default function newVersion() {
     <section className="max-w-7xl m-auto px-8">
       <BackLink href={`/admin/templates/${templateId}`} />
       <h1 className="text-2xl my-8">Eine neue Version der Vorlage <strong>{template.title}</strong> erstellen</h1>
-      <VersionForm />
+      <VersionForm template={template} />
     </section>
   )
 }
