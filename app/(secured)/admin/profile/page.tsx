@@ -54,7 +54,7 @@ export default function Profile() {
       Loading...
     </div>
   ) : (
-    <div className="mx-auto my-12 max-w-3xl">
+    <div className="max-w-7xl m-auto px-8 my-8">
      <Card>
         <CardHeader>
           <CardTitle>Persönliche Informationen</CardTitle>
