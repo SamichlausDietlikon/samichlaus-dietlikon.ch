@@ -80,7 +80,7 @@ export default function Templates() {
                       </Button>
                     </>
                   )}
-                  <Link href={`/admin/templates/${template.id}`} className="text-primary underline-offset-4 hover:underline text-sm font-medium">
+                  <Link href={`/admin/templates/${template.id}`} className="text-primary underline-offset-4 hover:underline text-sm font-medium h-9 px-2 py-2">
                     Anzeigen
                   </Link>
                 </TableCell>
