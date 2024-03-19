@@ -127,7 +127,7 @@ const DateTimePicker = (props: DatePickerProps) => {
 		},
 	});
 
-	const dateDisplayFormat = hasTime ? 'MM/dd/yyyy hh:mm a' : 'MM/dd/yyyy'
+	const dateDisplayFormat = hasTime ? 'dd.MM.yyyy HH:mm' : 'dd.MM.yyyy'
 
 	return (
 		<Popover open={open} onOpenChange={setOpen} aria-label='Date Time Picker'>
@@ -135,12 +135,12 @@ const DateTimePicker = (props: DatePickerProps) => {
 				<Button
 					variant={"outline"}
 					className={cn(
-						"min-w-[240px] justify-start text-left h-12",
+						"min-w-[160px] w-full justify-start text-left h-12",
 						!props.value && "text-muted-foreground",
 					)}
 				>
 					<CalendarIcon className="mr-2 h-4 w-4" />
-					{props.value?.date ? format(props.value.date, dateDisplayFormat) : <span>Pick a date</span>}
+					{props.value?.date ? format(props.value.date, dateDisplayFormat) : <span>Auswählen</span>}
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent ref={contentRef} className="w-auto" align="start">
