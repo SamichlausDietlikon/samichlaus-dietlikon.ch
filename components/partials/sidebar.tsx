@@ -6,7 +6,7 @@ import { Tables } from "@/types/database.types"
 import { createClient } from "@/lib/supabase/client"
 import { toast } from "sonner"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
-import { usePathname, useRouter } from "next/navigation"
+import { useParams, usePathname, useRouter } from "next/navigation"
 
 export default function Sidebar() {
   const [seasons, setSeasons] = useState<Tables<"seasons">[]|null>(null)
@@ -16,6 +16,25 @@ export default function Sidebar() {
   const supabase = createClient()
   const router = useRouter()
   const pathname = usePathname()
+  const { seasonId } = useParams()
+
+  useEffect(() => {
+    async function getChosenSeason(seasonId: number) {
+      const {data, error} = await supabase.from("seasons").select().eq("id", seasonId).maybeSingle()
+
+      if(error) {
+        console.error(error)
+        toast.error(`Fehler: ${JSON.stringify(error)}`)
+        return
+      }
+
+      setChosenSeason(data)
+    }
+
+    if(seasonId) {
+      getChosenSeason(parseInt(Array.isArray(seasonId) ? seasonId[0] : seasonId))
+    }
+  })
 
   useEffect(() => {
     async function getSeasons() {
