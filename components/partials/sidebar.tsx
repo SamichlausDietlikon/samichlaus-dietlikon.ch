@@ -7,6 +7,9 @@ import { createClient } from "@/lib/supabase/client"
 import { toast } from "sonner"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { useParams, usePathname, useRouter } from "next/navigation"
+import Link from "next/link"
+import { cn } from "@/lib/utils"
+import { buttonVariants } from "../ui/button"
 
 export default function Sidebar() {
   const [seasons, setSeasons] = useState<Tables<"seasons">[]|null>(null)
@@ -62,11 +65,11 @@ export default function Sidebar() {
 
   return (
     // Calc 100vh minus 65px because of header height (64px height + 1px border)
-    <aside className="w-56 h-[calc(100vh-65px)] border-r bg-white border-gray-200 p-4">
+    <aside className="min-w-48 h-[calc(100vh-65px)] border-r bg-white border-gray-200 p-4">
       <SeasonsFromDialog refetch={refetch} setRefetch={setRefetch} />
       {seasons && seasons.length > 0 && (
         <div>
-          <Select onValueChange={chosenSeason => handleChoose(chosenSeason)} defaultValue={chosenSeason?.id.toString() || undefined}>
+          <Select onValueChange={chosenSeason => handleChoose(chosenSeason)} value={chosenSeason?.id.toString()} defaultValue={chosenSeason?.id.toString() || undefined}>
             <SelectTrigger className="my-2">
               <SelectValue placeholder="Saison auswählen" />
             </SelectTrigger>
@@ -83,6 +86,42 @@ export default function Sidebar() {
             </SelectContent>
           </Select>
         </div>
+      )}
+      {chosenSeason && seasonId && (
+        <ul>
+          <li>
+            <Link
+              href={`/admin/seasons/${seasonId}/tours`}
+              className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "px-2 h-8 py-2 w-full justify-start")}
+            >
+              Touren
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={`/admin/seasons/${seasonId}/visits`}
+              className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "px-2 h-8 py-2 w-full justify-start")}
+            >
+              Besuche
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={`/admin/seasons/${seasonId}/members`}
+              className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "px-2 h-8 py-2 w-full justify-start")}
+            >
+              Mitglieder 
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={`/admin/seasons/${seasonId}/templates`}
+              className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "px-2 h-8 py-2 w-full justify-start")}
+            >
+              Vorlagen
+            </Link>
+          </li>
+        </ul>
       )}
     </aside>
   )
