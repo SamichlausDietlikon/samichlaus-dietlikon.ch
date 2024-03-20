@@ -149,6 +149,7 @@ export type Database = {
           created_at: string
           id: number
           season_id: number | null
+          staff_role: Database["public"]["Enums"]["staff_roles"]
           updated_at: string
           user_id: string | null
         }
@@ -156,6 +157,7 @@ export type Database = {
           created_at?: string
           id?: number
           season_id?: number | null
+          staff_role: Database["public"]["Enums"]["staff_roles"]
           updated_at?: string
           user_id?: string | null
         }
@@ -163,26 +165,27 @@ export type Database = {
           created_at?: string
           id?: number
           season_id?: number | null
+          staff_role?: Database["public"]["Enums"]["staff_roles"]
           updated_at?: string
           user_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "public_season_members_season_id_fkey"
+            foreignKeyName: "season_members_season_id_fkey"
             columns: ["season_id"]
             isOneToOne: false
             referencedRelation: "seasons"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "public_season_members_user_id_fkey"
+            foreignKeyName: "season_members_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "all_users_full"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "public_season_members_user_id_fkey"
+            foreignKeyName: "season_members_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
@@ -673,28 +676,28 @@ export type Database = {
         }
         Relationships: []
       }
-      user_staff_roles: {
+      user_admins: {
         Row: {
           created_at: string
           id: string
-          staff_role: Database["public"]["Enums"]["staff_roles"]
+          is_admin: boolean
           updated_at: string
         }
         Insert: {
           created_at?: string
           id: string
-          staff_role: Database["public"]["Enums"]["staff_roles"]
+          is_admin: boolean
           updated_at?: string
         }
         Update: {
           created_at?: string
           id?: string
-          staff_role?: Database["public"]["Enums"]["staff_roles"]
+          is_admin?: boolean
           updated_at?: string
         }
         Relationships: [
           {
-            foreignKeyName: "user_staff_roles_id_fkey"
+            foreignKeyName: "user_admins_id_fkey"
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
@@ -766,8 +769,8 @@ export type Database = {
           email: string | null
           first_name: string | null
           id: string | null
+          is_admin: boolean | null
           last_name: string | null
-          staff_role: Database["public"]["Enums"]["staff_roles"] | null
           store_email: boolean | null
           updated_at: string | null
         }
@@ -819,7 +822,7 @@ export type Database = {
       }
     }
     Enums: {
-      staff_roles: "admin" | "tour_manager" | "staff"
+      staff_roles: "tour_manager" | "staff"
       tour_template_tags: "development" | "released" | "deprecated"
     }
     CompositeTypes: {
