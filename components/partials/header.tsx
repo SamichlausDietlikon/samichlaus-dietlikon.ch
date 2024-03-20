@@ -7,8 +7,8 @@ import { usePathname } from "next/navigation";
 
 const components: { title: string; href: string}[] = [
   {
-    title: "Mitglieder",
-    href: "/admin/members",
+    title: "Nutzer",
+    href: "/admin/users",
   },
   {
     title: "Vorlagen",

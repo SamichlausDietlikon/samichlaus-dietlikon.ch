@@ -1,6 +1,6 @@
 "use client"
 
-import MembersFormDialog from "@/components/members/members-form-dialog";
+import UsersFormDialog from "@/components/users/users-form-dialog";
 import {
   Table,
   TableBody,
@@ -11,13 +11,11 @@ import {
 } from "@/components/ui/table"
 import useUser from "@/hooks/useUser";
 import { createClient } from "@/lib/supabase/client";
-import { staffRoles } from "@/lib/utils";
 import { FullUser } from "@/types/common.types";
 import { useEffect, useState } from "react";
-import { toast } from "sonner"
 
-export default function Members() {
-  const [members, setMembers] = useState<[]|FullUser[]>([])
+export default function Users() {
+  const [users, setUsers] = useState<[]|FullUser[]>([])
   const [refetch, setRefetch] = useState<boolean>(false)
 
   const { loading, user } = useUser();
@@ -31,7 +29,7 @@ export default function Members() {
         return
       }
 
-      setMembers(data as FullUser[])
+      setUsers(data as FullUser[])
     })
   }, [refetch, supabase])
 
@@ -40,27 +38,27 @@ export default function Members() {
     <div>Loading...</div>
   ) : (
     <section className="max-w-7xl m-auto px-8">
-      <h1 className="text-2xl my-8">Mitglieder</h1>
+      <h1 className="text-2xl my-8">Nutzer</h1>
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead>Vorname</TableHead>
             <TableHead>Nachname</TableHead>
             <TableHead>Email</TableHead>
-            <TableHead>Rolle</TableHead>
+            <TableHead>Admin?</TableHead>
             <TableHead className="text-right">Aktionen</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {members?.map((member) => (
-            <TableRow key={member.id}>
-              <TableCell>{member.first_name ?? "-"}</TableCell>
-              <TableCell>{member.last_name ?? "-"}</TableCell>
-              <TableCell>{member.email}</TableCell>
-              <TableCell>{member.staff_role ? staffRoles[member.staff_role] : "-"}</TableCell>
+          {users?.map((appUser) => (
+            <TableRow key={appUser.id}>
+              <TableCell>{appUser.first_name ?? "-"}</TableCell>
+              <TableCell>{appUser.last_name ?? "-"}</TableCell>
+              <TableCell>{appUser.email}</TableCell>
+              <TableCell>{appUser.staff_role === "admin" ? "Ja" : "Nein"}</TableCell>
               <TableCell className="text-right">
-                {(user as FullUser).staff_role === "admin" && member.id !== user?.id && (
-                  <MembersFormDialog member={member} refetch={refetch} setRefetch={setRefetch} />
+                {appUser.staff_role === "admin" && appUser.id !== user?.id && (
+                  <UsersFormDialog user={appUser} refetch={refetch} setRefetch={setRefetch} />
                 )}
               </TableCell>
             </TableRow>

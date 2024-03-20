@@ -18,26 +18,27 @@ import {toast} from "sonner"
 import { FullUser } from "@/types/common.types"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select"
 import { staffRoles } from "@/lib/utils"
+import { Checkbox } from "../ui/checkbox"
 
-export default function MembersFormDialog({ member, refetch, setRefetch }: { member: FullUser, refetch: boolean, setRefetch: (value: boolean) => void}) {
+export default function UsersFormDialog({ user, refetch, setRefetch }: { user: FullUser, refetch: boolean, setRefetch: (value: boolean) => void}) {
   const [open, setOpen] = useState(false)
-  const [staffRole, setStaffRole] = useState(member.staff_role)
+  const [isAdmin, setIsAdmin] = useState(user.staff_role === "admin")
   
   const supabase = createClient()
 
   function resetAndClose() {
-    setStaffRole(member.staff_role)
+    setIsAdmin(user.staff_role === "admin")
     setOpen(false)
   }
 
   async function handleSave() {
-    const {error: roleError} = await supabase.from("user_staff_roles").upsert({
-      id: member.id,
-      staff_role: staffRole
+    const {error: roleError} = await supabase.from("user_admins").upsert({
+      id: user.id,
+      is_admin: isAdmin
     })
 
     if(!roleError) {
-      toast.success(<span><strong>${member.first_name} ${member.last_name}</strong> wurde erfolgreich aktualisiert</span>)
+      toast.success(<span><strong>${user.first_name} ${user.last_name}</strong> wurde erfolgreich aktualisiert</span>)
       setOpen(false)
       setRefetch(!refetch)
     } else {
@@ -52,26 +53,11 @@ export default function MembersFormDialog({ member, refetch, setRefetch }: { mem
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Bearbeite <em>{member.first_name} {member.last_name}</em></DialogTitle>
+          <DialogTitle>Bearbeite <em>{user.first_name} {user.last_name}</em></DialogTitle>
         </DialogHeader>
         <div>
-          <Label>Rolle</Label>
-          <Select onValueChange={role => setStaffRole(role as Enums<"staff_roles">)} defaultValue={staffRole || undefined}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Rolle auswählen" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {Object.entries(staffRoles).map(([key, value]) => {
-                  return (
-                    <>
-                      <SelectItem value={key}>{value}</SelectItem>
-                    </>
-                  )
-                })}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <Checkbox id="isAdmin" checked={isAdmin} onClick={() => setIsAdmin(!isAdmin)} />
+          <Label>Ist Admin</Label>
         </div>
         <DialogFooter>
           <Button variant="link" onClick={() => resetAndClose()}>Abbrechen</Button>
