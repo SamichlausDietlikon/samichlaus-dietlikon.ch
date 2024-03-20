@@ -57,7 +57,7 @@ export default function Users() {
               <TableCell>{appUser.email}</TableCell>
               <TableCell>{appUser.staff_role === "admin" ? "Ja" : "Nein"}</TableCell>
               <TableCell className="text-right">
-                {appUser.staff_role === "admin" && appUser.id !== user?.id && (
+                {(user as FullUser).staff_role === "admin" && appUser.id !== user?.id && (
                   <UsersFormDialog user={appUser} refetch={refetch} setRefetch={setRefetch} />
                 )}
               </TableCell>
