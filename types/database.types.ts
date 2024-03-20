@@ -769,8 +769,8 @@ export type Database = {
           email: string | null
           first_name: string | null
           id: string | null
-          is_admin: boolean | null
           last_name: string | null
+          staff_role: string | null
           store_email: boolean | null
           updated_at: string | null
         }
