@@ -22,7 +22,8 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const { data: userRole} = await supabase.from("user_staff_roles").select("staff_role").eq("id", session.user.id).limit(1).maybeSingle();
+  const { data: userAdmin} = await supabase.from("user_admins").select("is_admin").eq("id", session.user.id).limit(1).maybeSingle();
+  const { data: seasonStaff} = await supabase.from("season_member").select("staff_role").eq("user_id", session.user.id).limit(1).maybeSingle();
   const { data: customUser} = await supabase.from("users").select("id").eq("id", session.user.id).limit(1).maybeSingle();
   
   if(!request.nextUrl.pathname.startsWith("/admin/setup") && !customUser) {
@@ -34,7 +35,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (request.nextUrl.pathname.startsWith('/auth/login')) {
-    if(userRole?.staff_role) {
+    if(userAdmin?.is_admin || seasonStaff?.staff_role) {
       return NextResponse.redirect(new URL('/admin', request.url))
     }
 

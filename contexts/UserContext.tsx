@@ -7,7 +7,7 @@ import { Dispatch, ReactNode, SetStateAction, createContext, useEffect, useState
 
 export const UserContext = createContext<{loading: boolean; user: FullUser | User | null; refetch: boolean, setRefetch: Dispatch<SetStateAction<boolean>>}>({loading: true, user: null, refetch: false, setRefetch: () => {}});
 
-export function UserProvider({children}: { children: ReactNode }) {
+export function UserProvider({children, params}: { children: ReactNode, params?: { seasonId: string }}) {
   const [loading, setLoading] = useState<boolean>(true)
   const [user, setUser] = useState<FullUser | User | null>(null)
   const [refetch, setRefetch] = useState(false)
@@ -31,15 +31,17 @@ export function UserProvider({children}: { children: ReactNode }) {
 
   async function getCustomUser(user: User) {
     const { data } = await supabase.from("users").select().eq("id", user!.id).limit(1).maybeSingle()
-    const { data: role } = await supabase.from("user_staff_roles").select().eq("id", user!.id).limit(1).maybeSingle()
-
-    if (!data || !role) {
+    // const { data: userAdmin} = await supabase.from("user_admins").select("is_admin").eq("id", user.id).limit(1).maybeSingle();
+    
+    if (!data) {
       setLoading(false)
       return
     }
 
+    // TODO: Check if user is tour manager in current season and then set staff_role accordingly
+
     // Merge all user data together
-    setUser({ "email": user?.email, ...role, ...data})
+    setUser({ "email": user?.email, ...data, staff_role: "admin"})
     
     setLoading(false)
   }

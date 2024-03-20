@@ -5,10 +5,18 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const staffRoles = {
-  "admin": "Admin",
+export const seasonStaffRoles = {
   "tour_manager": "Touren Management",
   "staff": "Mitglied",
+}
+
+export const globalStaffRoles = {
+  "admin": "Admin",
+}
+
+export const staffRoles = {
+  ...globalStaffRoles,
+  ...seasonStaffRoles,
 }
 
 export const tourTemplateTags = {
