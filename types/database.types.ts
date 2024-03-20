@@ -148,26 +148,26 @@ export type Database = {
         Row: {
           created_at: string
           id: number
-          season_id: number | null
+          season_id: number
           staff_role: Database["public"]["Enums"]["staff_roles"]
           updated_at: string
-          user_id: string | null
+          user_id: string
         }
         Insert: {
           created_at?: string
           id?: number
-          season_id?: number | null
+          season_id: number
           staff_role: Database["public"]["Enums"]["staff_roles"]
           updated_at?: string
-          user_id?: string | null
+          user_id: string
         }
         Update: {
           created_at?: string
           id?: number
-          season_id?: number | null
+          season_id?: number
           staff_role?: Database["public"]["Enums"]["staff_roles"]
           updated_at?: string
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: [
           {
