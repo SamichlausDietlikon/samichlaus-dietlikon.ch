@@ -48,7 +48,7 @@ export function UserProvider({children, params}: { children: ReactNode, params?:
 
   useEffect(() => {
     getUser()
-  }, [refetch])
+  }, [refetch, supabase])
 
   return (
     <UserContext.Provider value={{ loading, user, refetch, setRefetch }}>

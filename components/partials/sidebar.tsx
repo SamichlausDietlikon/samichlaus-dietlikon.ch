@@ -37,7 +37,7 @@ export default function Sidebar() {
     if(seasonId) {
       getChosenSeason(parseInt(Array.isArray(seasonId) ? seasonId[0] : seasonId))
     }
-  })
+  }, [supabase])
 
   useEffect(() => {
     async function getSeasons() {
