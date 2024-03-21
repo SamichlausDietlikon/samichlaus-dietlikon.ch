@@ -15,21 +15,22 @@ import { Button } from "../ui/button"
 import { createClient } from "@/lib/supabase/client"
 import {toast} from "sonner"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select"
-import { seasonStaffRoles, staffRoles } from "@/lib/utils"
+import { seasonStaffRoles } from "@/lib/utils"
 import { useParams } from "next/navigation"
+import { Combobox } from "../common/combobox"
 
-export default function MembersFormDialog({ member, refetch, setRefetch }: { member?: Tables<"season_members"> & { users: Tables<"users">[]}, refetch: boolean, setRefetch: (value: boolean) => void}) {
+export default function MembersFormDialog({ member, refetch, setRefetch }: { member?: Tables<"season_members"> & { users: Tables<"users">|null}, refetch: boolean, setRefetch: (value: boolean) => void}) {
   const [open, setOpen] = useState(false)
   const [memberId, setMemberId] = useState(member?.user_id)
   const [staffRole, setStaffRole] = useState(member?.staff_role)
-  const [users, setUsers] = useState<Tables<"users">[]|null>(null)
+  const [users, setUsers] = useState<{value: string; label: string}[]|[]|null>(null)
   
   const supabase = createClient()
   const params = useParams()
 
   useEffect(() => {
     async function getUsers() {
-      const {data, error} = await supabase.from("users").select()
+      const {data, error} = await supabase.from("users").select("id, first_name, last_name, user_admins!left(*)")
 
       if(error) {
         console.error(error)
@@ -37,10 +38,10 @@ export default function MembersFormDialog({ member, refetch, setRefetch }: { mem
         return
       }
 
-      setUsers(data)
+      setUsers(data.filter(user => !user.user_admins).map(user => { return { value: user.id, label: `${user.first_name} ${user.last_name}`} } ))
     }
     getUsers()
-  })
+  }, [supabase])
 
   function resetAndClose() {
     setMemberId(member?.user_id)
@@ -71,31 +72,59 @@ export default function MembersFormDialog({ member, refetch, setRefetch }: { mem
   }
 
   async function handleSave() {
+    if(!staffRole) {
+      toast.error("Rolle muss ausgewählt werden")
+      return
+    }
+
     const {error} = await supabase.from("season_members").update({
       staff_role: staffRole
     }).eq("user_id", memberId!)
 
     if(!error) {
-      toast.success(<span>${member?.users[0].first_name} ${member?.users[0].first_name} wurde erfolgreich aktualisiert</span>)
+      toast.success(<span>{member?.users?.first_name || "Unknown"} {member?.users?.last_name || "Unknown"} wurde erfolgreich aktualisiert</span>)
       setOpen(false)
       setRefetch(!refetch)
-    } else {
-      toast.error(`Fehler: ${JSON.stringify(error)}`)
+      return
     }
+    
+    toast.error(`Fehler: ${JSON.stringify(error)}`)
+  }
+
+  async function handleRemove() {
+    const {error} = await supabase.from("season_members").delete().eq("user_id", memberId!)
+
+    if(!error) {
+      toast.success(<span>{member?.users?.first_name || "Unknown"} {member?.users?.last_name || "Unknown"} wurde erfolgreich aktualisiert</span>)
+      setOpen(false)
+      setRefetch(!refetch)
+      return
+    }
+    
+    toast.error(`Fehler: ${JSON.stringify(error)}`)
   }
 
   return users && (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button variant="secondary" size="sm">+ Hinzufügen</Button>
+        {member
+          ? <Button variant="secondary" size="sm">Bearbeiten</Button>
+          : <Button variant="secondary" size="sm">+ Hinzufügen</Button>
+        }
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Mitglied zur Saison hinzufügen</DialogTitle>
+          {member
+            ? <DialogTitle>Mitglied bearbeiten</DialogTitle>
+            : <DialogTitle>Mitglied zur Saison hinzufügen</DialogTitle>
+          }
         </DialogHeader>
-        <div>
-          <Label>Mitglied</Label>
-        </div>
+        {!member && (
+          <div className="flex flex-col space-y-1.5">
+            <Label>Mitglied</Label>
+            <Combobox data={users} value={memberId || ""} setValue={setMemberId} />
+          </div>
+        )}
         <div>
           <Label>Rolle</Label>
           <Select onValueChange={role => setStaffRole(role as Enums<"staff_roles">)} defaultValue={staffRole || undefined}>
@@ -115,9 +144,15 @@ export default function MembersFormDialog({ member, refetch, setRefetch }: { mem
             </SelectContent>
           </Select>
         </div>
-        <DialogFooter>
-          <Button variant="link" onClick={() => resetAndClose()}>Abbrechen</Button>
-          <Button onClick={() => handleSave()}>Speichern</Button>
+        <DialogFooter className="sm:justify-between">
+          <div><Button variant="link" onClick={() => handleRemove()} className="text-red-400 hover:text-red-500">Entfernen</Button></div>
+          <div>
+            <Button variant="link" onClick={() => resetAndClose()}>Abbrechen</Button>
+            {member
+              ? <Button onClick={() => handleSave()}>Speichern</Button>
+              : <Button onClick={() => handleAdd()}>Hinzufügen</Button>
+            }
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
