@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import Sidebar from "@/components/partials/sidebar"
-import useUser from "@/hooks/useUser"
+import Sidebar from "@/components/partials/sidebar";
+import useUser from "@/hooks/useUser";
 
-export default function SeasonLayout({children}: {children: React.ReactNode}) {
-  const {loading} = useUser()
+export default function SeasonLayout({ children }: { children: React.ReactNode }) {
+  const { loading } = useUser();
 
   return loading ? (
     <div>Loading...</div>
   ) : (
-    <div className="h-full flex"> 
+    <div className="h-full flex">
       <Sidebar />
       {children}
     </div>
-  )
+  );
 }

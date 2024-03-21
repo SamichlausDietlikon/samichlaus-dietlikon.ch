@@ -1,26 +1,30 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Check, ChevronsUpDown } from "lucide-react"
+import * as React from "react";
+import { Check, ChevronsUpDown } from "lucide-react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-} from "@/components/ui/command"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { CommandList } from "cmdk"
+} from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { CommandList } from "cmdk";
 
-export function Combobox({ data, value, setValue}: { data: {value: string; label: string}[], value: string, setValue: (value: string) => void}) {
-  const [open, setOpen] = React.useState(false)
+export function Combobox({
+  data,
+  value,
+  setValue,
+}: {
+  data: { value: string; label: string }[];
+  value: string;
+  setValue: (value: string) => void;
+}) {
+  const [open, setOpen] = React.useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -48,8 +52,8 @@ export function Combobox({ data, value, setValue}: { data: {value: string; label
                   key={dataRecord.value}
                   value={dataRecord.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
-                    setOpen(false)
+                    setValue(currentValue === value ? "" : currentValue);
+                    setOpen(false);
                   }}
                 >
                   <Check
@@ -66,5 +70,5 @@ export function Combobox({ data, value, setValue}: { data: {value: string; label
         </Command>
       </PopoverContent>
     </Popover>
-  )
+  );
 }

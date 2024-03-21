@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import ResponsibilityFormDialog from "@/components/responsibilities/responsibility-form-dialog";
 import { Button } from "@/components/ui/button";
@@ -9,40 +9,46 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import useUser from "@/hooks/useUser";
 import { createClient } from "@/lib/supabase/client";
 import { FullUser } from "@/types/common.types";
 import { Tables } from "@/types/database.types";
 import { useEffect, useState } from "react";
-import { toast } from "sonner"
+import { toast } from "sonner";
 
 export default function Responsibilities() {
-  const [responsibilities, setResponsibilities] = useState<[]|Tables<"responsibilities">[]>([])
-  const [refetch, setRefetch] = useState<boolean>(false)
+  const [responsibilities, setResponsibilities] = useState<
+    [] | Tables<"responsibilities">[]
+  >([]);
+  const [refetch, setRefetch] = useState<boolean>(false);
 
   const { loading, user } = useUser();
 
-  const supabase = createClient()
-  
+  const supabase = createClient();
+
   useEffect(() => {
-    supabase.from("responsibilities").select().then(({ data, error }) => {
-      if (error) {
-        console.error(error)
-        return
-      }
+    supabase
+      .from("responsibilities")
+      .select()
+      .then(({ data, error }) => {
+        if (error) {
+          console.error(error);
+          return;
+        }
 
-      setResponsibilities(data)
-    })
-  }, [refetch, supabase])
-
+        setResponsibilities(data);
+      });
+  }, [refetch, supabase]);
 
   async function handleDelete(id: number) {
-    const {status} = await supabase.from("responsibilities").delete().eq("id", id)
+    const { status } = await supabase.from("responsibilities").delete().eq("id", id);
 
-    if(status === 204) {
-      toast.success("Funktion erfolgreich gelöscht")
-      setResponsibilities(responsibilities.filter(responsibility => responsibility.id !== id))
+    if (status === 204) {
+      toast.success("Funktion erfolgreich gelöscht");
+      setResponsibilities(
+        responsibilities.filter((responsibility) => responsibility.id !== id)
+      );
     }
   }
 
@@ -58,7 +64,7 @@ export default function Responsibilities() {
             <TableHead>Zeit überlappend</TableHead>
             <TableHead className="text-right">
               {(user as FullUser).staff_role === "admin" && (
-                <ResponsibilityFormDialog refetch={refetch} setRefetch={setRefetch}/>
+                <ResponsibilityFormDialog refetch={refetch} setRefetch={setRefetch} />
               )}
             </TableHead>
           </TableRow>
@@ -71,10 +77,18 @@ export default function Responsibilities() {
               <TableCell className="text-right">
                 {(user as FullUser).staff_role === "admin" && (
                   <>
-                    <ResponsibilityFormDialog refetch={refetch} setRefetch={setRefetch} responsibility={responsibility} />
-                    <Button variant="link" className="text-red-400 hover:text-red-500" onClick={() => handleDelete(responsibility.id)}>
+                    <ResponsibilityFormDialog
+                      refetch={refetch}
+                      setRefetch={setRefetch}
+                      responsibility={responsibility}
+                    />
+                    <Button
+                      variant="link"
+                      className="text-red-400 hover:text-red-500"
+                      onClick={() => handleDelete(responsibility.id)}
+                    >
                       Löschen
-                    </Button>  
+                    </Button>
                   </>
                 )}
               </TableCell>
@@ -83,5 +97,5 @@ export default function Responsibilities() {
         </TableBody>
       </Table>
     </section>
-  )
+  );
 }

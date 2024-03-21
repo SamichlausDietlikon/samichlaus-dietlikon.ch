@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -8,46 +8,49 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import VillageFormDialog from "@/components/villages/village-form-dialog";
 import useUser from "@/hooks/useUser";
 import { createClient } from "@/lib/supabase/client";
 import { FullUser } from "@/types/common.types";
 import { Tables } from "@/types/database.types";
 import { useEffect, useState } from "react";
-import { toast } from "sonner"
+import { toast } from "sonner";
 
 export default function Villages() {
-  const [villages, setVillages] = useState<[]|Tables<"villages">[]>([])
-  const [refetch, setRefetch] = useState<boolean>(false)
+  const [villages, setVillages] = useState<[] | Tables<"villages">[]>([]);
+  const [refetch, setRefetch] = useState<boolean>(false);
 
   const { loading, user } = useUser();
 
-  const supabase = createClient()
+  const supabase = createClient();
 
   useEffect(() => {
-    supabase.from("villages").select().order("name").then(({ data, error }) => {
-      if (error) {
-        console.error(error)
-        toast.error(`Fehler: ${JSON.stringify(error)}`)
-        return
-      }
+    supabase
+      .from("villages")
+      .select()
+      .order("name")
+      .then(({ data, error }) => {
+        if (error) {
+          console.error(error);
+          toast.error(`Fehler: ${JSON.stringify(error)}`);
+          return;
+        }
 
-      setVillages(data)
-    })
-  }, [refetch, supabase])
-
+        setVillages(data);
+      });
+  }, [refetch, supabase]);
 
   async function handleDelete(id: number) {
-    const {status, error} = await supabase.from("villages").delete().eq("id", id)
+    const { status, error } = await supabase.from("villages").delete().eq("id", id);
 
-    if(status === 204) {
-      toast.success("Dorf erfolgreich gelöscht")
-      setVillages(villages.filter(village => village.id !== id))
-      return
+    if (status === 204) {
+      toast.success("Dorf erfolgreich gelöscht");
+      setVillages(villages.filter((village) => village.id !== id));
+      return;
     }
 
-    toast.error(`Fehler: ${JSON.stringify(error)}`)
+    toast.error(`Fehler: ${JSON.stringify(error)}`);
   }
 
   return loading ? (
@@ -73,10 +76,18 @@ export default function Villages() {
               <TableCell className="text-right">
                 {(user as FullUser).staff_role === "admin" && (
                   <>
-                    <VillageFormDialog refetch={refetch} setRefetch={setRefetch} village={village} />
-                    <Button variant="link" className="text-red-400 hover:text-red-500" onClick={() => handleDelete(village.id)}>
-                      Löschen 
-                    </Button>  
+                    <VillageFormDialog
+                      refetch={refetch}
+                      setRefetch={setRefetch}
+                      village={village}
+                    />
+                    <Button
+                      variant="link"
+                      className="text-red-400 hover:text-red-500"
+                      onClick={() => handleDelete(village.id)}
+                    >
+                      Löschen
+                    </Button>
                   </>
                 )}
               </TableCell>
@@ -85,5 +96,5 @@ export default function Villages() {
         </TableBody>
       </Table>
     </section>
-  )
+  );
 }

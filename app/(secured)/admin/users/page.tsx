@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import UsersFormDialog from "@/components/users/users-form-dialog";
 import {
@@ -8,31 +8,33 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import useUser from "@/hooks/useUser";
 import { createClient } from "@/lib/supabase/client";
 import { FullUser } from "@/types/common.types";
 import { useEffect, useState } from "react";
 
 export default function Users() {
-  const [users, setUsers] = useState<[]|FullUser[]>([])
-  const [refetch, setRefetch] = useState<boolean>(false)
+  const [users, setUsers] = useState<[] | FullUser[]>([]);
+  const [refetch, setRefetch] = useState<boolean>(false);
 
   const { loading, user } = useUser();
 
-  const supabase = createClient()
-  
+  const supabase = createClient();
+
   useEffect(() => {
-    supabase.from("all_users_full").select().then(({ data, error }) => {
-      if (error) {
-        console.error(error)
-        return
-      }
+    supabase
+      .from("all_users_full")
+      .select()
+      .then(({ data, error }) => {
+        if (error) {
+          console.error(error);
+          return;
+        }
 
-      setUsers(data as FullUser[])
-    })
-  }, [refetch, supabase])
-
+        setUsers(data as FullUser[]);
+      });
+  }, [refetch, supabase]);
 
   return loading ? (
     <div>Loading...</div>
@@ -58,7 +60,11 @@ export default function Users() {
               <TableCell>{appUser.staff_role === "admin" ? "Ja" : "Nein"}</TableCell>
               <TableCell className="text-right">
                 {(user as FullUser).staff_role === "admin" && appUser.id !== user?.id && (
-                  <UsersFormDialog user={appUser} refetch={refetch} setRefetch={setRefetch} />
+                  <UsersFormDialog
+                    user={appUser}
+                    refetch={refetch}
+                    setRefetch={setRefetch}
+                  />
                 )}
               </TableCell>
             </TableRow>
@@ -66,5 +72,5 @@ export default function Users() {
         </TableBody>
       </Table>
     </section>
-  )
+  );
 }

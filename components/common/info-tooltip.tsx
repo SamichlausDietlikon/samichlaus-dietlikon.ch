@@ -3,9 +3,9 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { InfoCircledIcon } from "@radix-ui/react-icons"
-export default function InfoTooltip({ text }: {text: string}) {
+} from "@/components/ui/tooltip";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
+export default function InfoTooltip({ text }: { text: string }) {
   return (
     <TooltipProvider>
       <Tooltip>
@@ -17,5 +17,5 @@ export default function InfoTooltip({ text }: {text: string}) {
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
-  )
+  );
 }

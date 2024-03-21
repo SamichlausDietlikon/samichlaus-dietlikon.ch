@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,34 +10,42 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { createClient } from "@/lib/supabase/client"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { createClient } from "@/lib/supabase/client";
 
 export default function Login() {
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
 
   async function handleSubmit() {
-    const supabase = createClient()
+    const supabase = createClient();
 
     await supabase.auth.signInWithOtp({
-      email
-    })
+      email,
+    });
   }
-  
+
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <Card className="w-[400px]">
         <CardHeader>
           <CardTitle>Als Nutzer anmelden</CardTitle>
-          <CardDescription>Erhalte einen Anmeldelink per Email umd dich anzumelden.</CardDescription>
+          <CardDescription>
+            Erhalte einen Anmeldelink per Email umd dich anzumelden.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">Email</Label>
-              <Input type="email" id="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Deine Email Adresse" />
+              <Input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Deine Email Adresse"
+              />
             </div>
           </div>
         </CardContent>

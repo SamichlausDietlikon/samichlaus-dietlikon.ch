@@ -1,7 +1,3 @@
 export default function Visits() {
-  return (
-    <div>
-      User Visits
-    </div>
-  );
+  return <div>User Visits</div>;
 }

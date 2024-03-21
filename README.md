@@ -16,10 +16,12 @@ Local DB URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
 Local Mail Testing URL: http://127.0.0.1:54324
 
 Links:
+
 - https://supabase.com/docs/guides/cli/getting-started#installing-the-supabase-cli
 - https://supabase.com/docs/guides/cli/getting-started#running-supabase-locally
 
 Commands used:
+
 ```bash
 npm install
 
@@ -45,6 +47,7 @@ source .env
 ```
 
 Template .env:
+
 ```bash
 NEXT_PUBLIC_SUPABASE_ANON_KEY=ey...
 ```

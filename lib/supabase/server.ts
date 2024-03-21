@@ -1,10 +1,10 @@
-import { Database } from '@/types/database.types'
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { cookies } from 'next/headers'
-import { NextRequest } from 'next/server'
+import { Database } from "@/types/database.types";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { cookies } from "next/headers";
+import { NextRequest } from "next/server";
 
 export function createClient(request?: NextRequest) {
-  const cookieStore = request ? request.cookies : cookies()
+  const cookieStore = request ? request.cookies : cookies();
 
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
@@ -12,23 +12,23 @@ export function createClient(request?: NextRequest) {
     {
       cookies: {
         get(name: string) {
-          return cookieStore.get(name)?.value
+          return cookieStore.get(name)?.value;
         },
         set(name: string, value: string, options: CookieOptions) {
           try {
-            cookieStore.set({ name, value, ...options })
+            cookieStore.set({ name, value, ...options });
           } catch (error) {
-            console.error(error)
+            console.error(error);
           }
         },
         remove(name: string, options: CookieOptions) {
           try {
-            cookieStore.set({ name, value: '', ...options })
+            cookieStore.set({ name, value: "", ...options });
           } catch (error) {
-            console.error(error)
+            console.error(error);
           }
         },
       },
     }
-  )
+  );
 }

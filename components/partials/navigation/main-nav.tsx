@@ -1,10 +1,18 @@
-import Link from "next/link"
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "../../ui/navigation-menu"
-import { cn } from "@/lib/utils"
-import React from "react"
-import ProfileDropdwon from "./profile-dropdown"
+import Link from "next/link";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "../../ui/navigation-menu";
+import { cn } from "@/lib/utils";
+import React from "react";
+import ProfileDropdwon from "./profile-dropdown";
 
-function ListItem({ className, title, children, ...props }: { [prop: string]: string}) {
+function ListItem({ className, title, children, ...props }: { [prop: string]: string }) {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -19,19 +27,21 @@ function ListItem({ className, title, children, ...props }: { [prop: string]: st
         </a>
       </NavigationMenuLink>
     </li>
-  )
+  );
 }
 
-export default function MainNav({ components }: { components: { title: string; href: string}[]} ) {
+export default function MainNav({
+  components,
+}: {
+  components: { title: string; href: string }[];
+}) {
   return (
     <div className="flex justify-between w-full">
       <NavigationMenu className="hidden space-x-4 sm:-my-px sm:ml-6 sm:flex">
         <NavigationMenuList>
           <NavigationMenuItem className={navigationMenuTriggerStyle()}>
             <Link href="/admin/seasons">
-              <NavigationMenuLink>
-                Saisons
-              </NavigationMenuLink>
+              <NavigationMenuLink>Saisons</NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
@@ -52,5 +62,5 @@ export default function MainNav({ components }: { components: { title: string; h
       </NavigationMenu>
       <ProfileDropdwon />
     </div>
-  )
+  );
 }
