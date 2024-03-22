@@ -16,6 +16,8 @@ import { useEffect, useState } from "react";
 import { Tables } from "@/types/database.types";
 import { seasonStaffRoles } from "@/lib/utils";
 import MembersFormDialog from "@/components/members/members-form-dialog";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function Members({ params }: { params: { seasonId: string } }) {
   const [members, setMembers] = useState<
@@ -42,6 +44,21 @@ export default function Members({ params }: { params: { seasonId: string } }) {
       });
   }, [refetch, supabase]);
 
+  async function handleRemove(memberId: number) {
+    const { error } = await supabase
+      .from("season_members")
+      .delete()
+      .eq("user_id", memberId!);
+
+    if (!error) {
+      toast.success(<span>Mitglied wurde wurde erfolgreich entfernt</span>);
+      setRefetch(!refetch);
+      return;
+    }
+
+    toast.error(`Fehler: ${JSON.stringify(error)}`);
+  }
+
   return loading ? (
     <div>Loading...</div>
   ) : (
@@ -67,6 +84,14 @@ export default function Members({ params }: { params: { seasonId: string } }) {
               <TableCell>{member.users?.last_name ?? "-"}</TableCell>
               <TableCell>{seasonStaffRoles[member.staff_role]}</TableCell>
               <TableCell className="text-right">
+                <Button
+                  variant="link"
+                  size="sm"
+                  onClick={() => handleRemove(member.id)}
+                  className="text-red-400 hover:text-red-500"
+                >
+                  Entfernen
+                </Button>
                 {(user as FullUser).staff_role === "admin" &&
                   member.users?.id !== user?.id && (
                     <MembersFormDialog

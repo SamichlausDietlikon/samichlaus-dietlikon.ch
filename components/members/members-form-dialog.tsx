@@ -125,27 +125,6 @@ export default function MembersFormDialog({
     toast.error(`Fehler: ${JSON.stringify(error)}`);
   }
 
-  async function handleRemove() {
-    const { error } = await supabase
-      .from("season_members")
-      .delete()
-      .eq("user_id", memberId!);
-
-    if (!error) {
-      toast.success(
-        <span>
-          {member?.users?.first_name || "Unknown"} {member?.users?.last_name || "Unknown"}{" "}
-          wurde erfolgreich aktualisiert
-        </span>
-      );
-      setOpen(false);
-      setRefetch(!refetch);
-      return;
-    }
-
-    toast.error(`Fehler: ${JSON.stringify(error)}`);
-  }
-
   return (
     users && (
       <Dialog open={open} onOpenChange={setOpen}>
@@ -197,15 +176,6 @@ export default function MembersFormDialog({
             </Select>
           </div>
           <DialogFooter className="sm:justify-between">
-            <div>
-              <Button
-                variant="link"
-                onClick={() => handleRemove()}
-                className="text-red-400 hover:text-red-500"
-              >
-                Entfernen
-              </Button>
-            </div>
             <div>
               <Button variant="link" onClick={() => resetAndClose()}>
                 Abbrechen
