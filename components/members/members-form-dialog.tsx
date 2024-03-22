@@ -175,17 +175,15 @@ export default function MembersFormDialog({
               </SelectContent>
             </Select>
           </div>
-          <DialogFooter className="sm:justify-between">
-            <div>
-              <Button variant="link" onClick={() => resetAndClose()}>
-                Abbrechen
-              </Button>
-              {member ? (
-                <Button onClick={() => handleSave()}>Speichern</Button>
-              ) : (
-                <Button onClick={() => handleAdd()}>Hinzufügen</Button>
-              )}
-            </div>
+          <DialogFooter>
+            <Button variant="link" onClick={() => resetAndClose()}>
+              Abbrechen
+            </Button>
+            {member ? (
+              <Button onClick={() => handleSave()}>Speichern</Button>
+            ) : (
+              <Button onClick={() => handleAdd()}>Hinzufügen</Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>
