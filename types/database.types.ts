@@ -198,21 +198,21 @@ export type Database = {
           created_at: string
           id: number
           season_id: number
-          tout_template_version_id: number
+          tour_template_version_id: number
           updated_at: string
         }
         Insert: {
           created_at?: string
           id?: number
           season_id: number
-          tout_template_version_id: number
+          tour_template_version_id: number
           updated_at?: string
         }
         Update: {
           created_at?: string
           id?: number
           season_id?: number
-          tout_template_version_id?: number
+          tour_template_version_id?: number
           updated_at?: string
         }
         Relationships: [
@@ -224,8 +224,8 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "season_templates_tout_template_version_id_fkey"
-            columns: ["tout_template_version_id"]
+            foreignKeyName: "season_templates_tour_template_version_id_fkey"
+            columns: ["tour_template_version_id"]
             isOneToOne: false
             referencedRelation: "tour_template_versions"
             referencedColumns: ["id"]
