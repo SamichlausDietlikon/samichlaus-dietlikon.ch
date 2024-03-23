@@ -11,6 +11,13 @@ import {
 import { cn } from "@/lib/utils";
 import React from "react";
 import ProfileDropdwon from "./profile-dropdown";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
 
 function ListItem({ className, title, children, ...props }: { [prop: string]: string }) {
   return (
@@ -45,18 +52,22 @@ export default function AdminNav({
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Admin</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="flex flex-col w-48 gap-1.5 p-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger className={cn(navigationMenuTriggerStyle())}>
+                Admin
+                <ChevronDownIcon
+                  className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
+                  aria-hidden="true"
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-36">
                 {components.map((component) => (
-                  <ListItem
-                    key={component.title}
-                    title={component.title}
-                    href={component.href}
-                  />
+                  <DropdownMenuItem key={component.title}>
+                    <Link href={component.href}>{component.title}</Link>
+                  </DropdownMenuItem>
                 ))}
-              </ul>
-            </NavigationMenuContent>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
