@@ -30,10 +30,15 @@ export default function Header() {
 
   return (
     !pathname.startsWith("/admin/setup") && (
-      <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16 w-full">
+      <nav>
+        <div className="border-b border-gray-200">
+          <div className="max-w-7xl mx-auto flex h-16 items-center gap-4 text-xl py-4 w-full px-4 sm:px-6 lg:px-8">
             <Logo />
+            St. Nikolaus-Gesellschaft Dietlikon, Wangen-Brüttisellen
+          </div>
+        </div>
+        <div className="border-b border-gray-200">
+          <div className="max-w-7xl mx-auto flex items-center h-16 w-full px-4 sm:px-6 lg:px-8">
             {pathname.startsWith("/admin") ? (
               <AdminNav components={components} />
             ) : (

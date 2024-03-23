@@ -8,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import useUser from "@/hooks/useUser";
 import { createClient } from "@/lib/supabase/client";
 import { FullUser } from "@/types/common.types";
@@ -23,7 +24,7 @@ export default function ProfileDropdwon() {
     <div className="text-sm my-auto">Loading...</div>
   ) : (
     <DropdownMenu>
-      <DropdownMenuTrigger className="group flex items-baseline my-auto text-sm">
+      <DropdownMenuTrigger className={navigationMenuTriggerStyle()}>
         {(user as FullUser).first_name} {(user as FullUser).last_name}
         <ChevronDownIcon
           className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"

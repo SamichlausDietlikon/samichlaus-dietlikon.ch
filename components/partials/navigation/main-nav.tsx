@@ -42,7 +42,7 @@ export default function MainNav({
 }) {
   return (
     <div className="flex justify-between w-full">
-      <NavigationMenu className="hidden space-x-4 sm:-my-px sm:ml-6 sm:flex">
+      <NavigationMenu className="hidden space-x-4 sm:-my-px sm:flex">
         <NavigationMenuList>
           <NavigationMenuItem className={navigationMenuTriggerStyle()}>
             <Link href="/">
