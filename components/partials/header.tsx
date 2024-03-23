@@ -2,8 +2,9 @@
 
 import Logo from "./logo";
 import React from "react";
-import MainNav from "./navigation/admin-nav";
 import { usePathname } from "next/navigation";
+import AdminNav from "./navigation/admin-nav";
+import MainNav from "./navigation/main-nav";
 
 const components: { title: string; href: string }[] = [
   {
@@ -33,7 +34,11 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-16 w-full">
             <Logo />
-            <MainNav components={components} />
+            {pathname.startsWith("/admin") ? (
+              <AdminNav components={components} />
+            ) : (
+              <MainNav components={components} />
+            )}
           </div>
         </div>
       </nav>
