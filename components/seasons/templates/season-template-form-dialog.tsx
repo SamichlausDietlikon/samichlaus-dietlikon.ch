@@ -85,22 +85,6 @@ export default function SeasonTemplateFromDialog({
       setTemplates(data);
     }
 
-    // async function getTemplate() {
-    //   const { data, error } = await supabase
-    //     .from("tour_templates")
-    //     .select("*, versions:tour_template_versions!inner(*)")
-    //     .eq("versions.tag", "released")
-    //     .eq("id", seasonTemplate?.tour_template_id);
-
-    //   if (error) {
-    //     console.error(error);
-    //     toast.error(`Fehler: ${JSON.stringify(error)}`);
-    //     return;
-    //   }
-
-    //   setTemplates(data);
-    // }
-
     getTemplates();
   }, [refetch, supabase]);
 
@@ -156,7 +140,13 @@ export default function SeasonTemplateFromDialog({
         <DialogHeader>
           {seasonTemplate ? (
             <DialogTitle>
-              Bearbeite <em>?</em>
+              Bearbeite{" "}
+              <em>
+                {
+                  templates?.filter((template) => template.id == seasonTemplateId)[0]
+                    .title
+                }
+              </em>
             </DialogTitle>
           ) : (
             <DialogTitle>Füge eine Vorlage zur Saison hinzu</DialogTitle>
