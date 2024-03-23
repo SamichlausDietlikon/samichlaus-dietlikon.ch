@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { Tables } from "@/types/database.types";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import CalendarFormDialog from "@/components/seasons/calendar/calendar-template-form-dialog";
+import CalendarFormDialog from "@/components/seasons/calendar/calendar-form-dialog";
 
 export default function Calendar({ params }: { params: { seasonId: string } }) {
   const [calendarEntries, setCalendarEntries] = useState<
