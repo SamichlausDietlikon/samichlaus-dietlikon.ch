@@ -51,7 +51,6 @@ export default function SeasonsFromDialog({
     }
 
     const { status, error } = await supabase.from("seasons").insert({
-      // @ts-ignore
       name: seasonName,
       from: seasonFrom.toISOString(),
       until: seasonUntil.toISOString(),
