@@ -148,6 +148,17 @@ export default function Sidebar() {
               Vorlagen
             </Link>
           </li>
+          <li>
+            <Link
+              href={`/admin/seasons/${seasonId}/calendar`}
+              className={cn(
+                buttonVariants({ variant: "ghost", size: "lg" }),
+                "px-2 h-8 py-2 w-full justify-start"
+              )}
+            >
+              Kalender
+            </Link>
+          </li>
         </ul>
       )}
     </aside>
