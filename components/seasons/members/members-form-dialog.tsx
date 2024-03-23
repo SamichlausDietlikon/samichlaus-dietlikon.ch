@@ -134,9 +134,7 @@ export default function MembersFormDialog({
               Bearbeiten
             </Button>
           ) : (
-            <Button variant="secondary" size="sm">
-              + Hinzufügen
-            </Button>
+            <Button size="sm">+ Hinzufügen</Button>
           )}
         </DialogTrigger>
         <DialogContent>
