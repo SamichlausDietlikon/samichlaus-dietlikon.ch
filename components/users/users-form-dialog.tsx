@@ -85,7 +85,7 @@ export default function UsersFormDialog({
             </em>
           </DialogTitle>
         </DialogHeader>
-        <div>
+        <div className="flex space-x-1.5 items-center">
           <Checkbox id="isAdmin" checked={isAdmin} onClick={() => setIsAdmin(!isAdmin)} />
           <Label>Ist Admin</Label>
         </div>
