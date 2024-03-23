@@ -23,10 +23,10 @@ export default function ProfileDropdwon() {
     <div className="text-sm my-auto">Loading...</div>
   ) : (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-baseline my-auto text-sm">
+      <DropdownMenuTrigger className="group flex items-baseline my-auto text-sm">
         {(user as FullUser).first_name} {(user as FullUser).last_name}
         <ChevronDownIcon
-          className="relative top-[1px] ml-1 h-3 w-3 transition duration-300"
+          className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
           aria-hidden="true"
         />
       </DropdownMenuTrigger>
