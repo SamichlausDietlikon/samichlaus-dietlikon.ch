@@ -136,7 +136,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_season_calendar_entries_season_id_fkey"
+            foreignKeyName: "season_calendar_entries_season_id_fkey"
             columns: ["season_id"]
             isOneToOne: false
             referencedRelation: "seasons"
