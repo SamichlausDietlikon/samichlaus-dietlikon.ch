@@ -56,7 +56,7 @@ export default function MainNav({
           </NavigationMenuItem>
           <NavigationMenuItem>
             <DropdownMenu>
-              <DropdownMenuTrigger className={cn(navigationMenuTriggerStyle())}>
+              <DropdownMenuTrigger className={navigationMenuTriggerStyle()}>
                 Anmeldung
                 <ChevronDownIcon
                   className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
@@ -69,6 +69,25 @@ export default function MainNav({
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/apply/business">Schulen & Firmen</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger className={navigationMenuTriggerStyle()}>
+                Verein
+                <ChevronDownIcon
+                  className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
+                  aria-hidden="true"
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-36">
+                <DropdownMenuItem>
+                  <Link href="/join">Mitglied werden</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/contact">Kontakt</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
