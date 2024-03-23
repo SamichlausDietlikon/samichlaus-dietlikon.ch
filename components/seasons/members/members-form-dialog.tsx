@@ -9,9 +9,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Enums, Tables } from "@/types/database.types";
-import { Label } from "../ui/label";
+import { Label } from "../../ui/label";
 import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import {
@@ -22,10 +22,10 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "../../ui/select";
 import { seasonStaffRoles } from "@/lib/utils";
 import { useParams } from "next/navigation";
-import { Combobox } from "../common/combobox";
+import { Combobox } from "../../common/combobox";
 
 export default function MembersFormDialog({
   member,

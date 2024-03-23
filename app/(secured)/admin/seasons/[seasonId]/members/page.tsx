@@ -15,7 +15,7 @@ import { FullUser } from "@/types/common.types";
 import { useEffect, useState } from "react";
 import { Tables } from "@/types/database.types";
 import { seasonStaffRoles } from "@/lib/utils";
-import MembersFormDialog from "@/components/members/members-form-dialog";
+import MembersFormDialog from "@/components/seasons/members/members-form-dialog";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
