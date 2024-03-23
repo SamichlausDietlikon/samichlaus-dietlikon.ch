@@ -53,8 +53,8 @@ export default function SeasonsFromDialog({
     const { status, error } = await supabase.from("seasons").insert({
       // @ts-ignore
       name: seasonName,
-      from: seasonFrom,
-      until: seasonUntil,
+      from: seasonFrom.toISOString(),
+      until: seasonUntil.toISOString(),
     });
 
     if (status === 201) {
@@ -67,12 +67,17 @@ export default function SeasonsFromDialog({
   }
 
   async function handleSave() {
+    if (!seasonName || !seasonFrom || !seasonUntil) {
+      toast.error("Bitte fülle alle benötigten Felder aus");
+      return;
+    }
+
     const { status, error } = await supabase
-      .from("villages")
+      .from("seasons")
       .update({
         name: seasonName,
-        from: seasonFrom,
-        until: seasonUntil,
+        from: seasonFrom.toISOString(),
+        until: seasonUntil.toISOString(),
       })
       .eq("id", season!.id);
 
