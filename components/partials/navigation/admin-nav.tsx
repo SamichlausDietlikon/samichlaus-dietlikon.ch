@@ -30,7 +30,7 @@ function ListItem({ className, title, children, ...props }: { [prop: string]: st
   );
 }
 
-export default function MainNav({
+export default function AdminNav({
   components,
 }: {
   components: { title: string; href: string }[];

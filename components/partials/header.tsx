@@ -2,7 +2,7 @@
 
 import Logo from "./logo";
 import React from "react";
-import MainNav from "./navigation/main-nav";
+import MainNav from "./navigation/admin-nav";
 import { usePathname } from "next/navigation";
 
 const components: { title: string; href: string }[] = [
