@@ -10,18 +10,10 @@ import {
 } from "@/components/ui/dialog";
 import { Tables } from "@/types/database.types";
 import { Label } from "../../ui/label";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "../../ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../ui/select";
 import { useParams } from "next/navigation";
 import { DateTimePicker } from "@/components/common/datetime-picker";
 import { Input } from "@/components/ui/input";
@@ -81,7 +73,7 @@ export default function CalendarFormDialog({
     }
   }
 
-  async function handleSave() {
+  async function handleSave(entryId: number) {
     const { status, error } = await supabase
       .from("season_calendar_entries")
       .update({
@@ -90,7 +82,8 @@ export default function CalendarFormDialog({
         from: calendarFrom ? calendarFrom.toISOString() : null,
         until: calendarUntil ? calendarUntil.toISOString() : null,
       })
-      .eq("season_id", parseInt(params.seasonId as string));
+      .eq("season_id", parseInt(params.seasonId as string))
+      .eq("id", entryId);
 
     if (status === 204) {
       toast.success(`Saison Kalendereintrag erfolgreich gespeichert`);
@@ -159,7 +152,7 @@ export default function CalendarFormDialog({
             Abbrechen
           </Button>
           {calendarEntry ? (
-            <Button onClick={() => handleSave()}>Speichern</Button>
+            <Button onClick={() => handleSave(calendarEntry.id)}>Speichern</Button>
           ) : (
             <Button onClick={() => handleCreate()}>Hinzufügen</Button>
           )}
