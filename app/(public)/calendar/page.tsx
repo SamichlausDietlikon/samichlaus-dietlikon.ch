@@ -74,8 +74,8 @@ export default function Calendar() {
   }, [supabase]);
 
   return (
-    <section className="max-w-3xl m-auto">
-      <div className="my-12 px-8 space-y-4 [&>p]:max-w-4xl [&>p]:m-auto">
+    <section className="max-w-4xl m-auto px-8">
+      <div className="my-12 space-y-4">
         <h1 className="text-3xl text-center">Kalender</h1>
         {calendarEntries && calendarEntries.length > 0 ? (
           <>
