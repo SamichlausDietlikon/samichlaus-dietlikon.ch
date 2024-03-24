@@ -84,6 +84,9 @@ export default function MainNav({
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-36">
                 <DropdownMenuItem>
+                  <Link href="/about">Über uns</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
                   <Link href="/join">Mitglied werden</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
