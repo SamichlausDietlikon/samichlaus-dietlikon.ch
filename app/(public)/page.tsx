@@ -120,7 +120,7 @@ const faq = [
 ];
 
 export default function Home() {
-  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+  const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
 
   return (
     <section className="space-y-8 [&>*]:border-b [&>*]:border-gray-200">
