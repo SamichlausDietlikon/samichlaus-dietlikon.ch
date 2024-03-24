@@ -590,24 +590,24 @@ export type Database = {
           from: string
           id: number
           name: string
-          udpated_at: string
           until: string
+          updated_at: string
         }
         Insert: {
           created_at?: string
           from: string
           id?: number
           name: string
-          udpated_at?: string
           until: string
+          updated_at?: string
         }
         Update: {
           created_at?: string
           from?: string
           id?: number
           name?: string
-          udpated_at?: string
           until?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -794,6 +794,27 @@ export type Database = {
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      season_calendar: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          from: string | null
+          id: number | null
+          season_id: number | null
+          title: string | null
+          until: string | null
+          updated_at: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "season_calendar_entries_season_id_fkey"
+            columns: ["season_id"]
+            isOneToOne: false
+            referencedRelation: "seasons"
             referencedColumns: ["id"]
           },
         ]
