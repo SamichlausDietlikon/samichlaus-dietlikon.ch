@@ -12,7 +12,7 @@ import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import useUser from "@/hooks/useUser";
 import { createClient } from "@/lib/supabase/client";
 import { FullUser } from "@/types/common.types";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { ChevronDownIcon, GearIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
 export default function ProfileDropdwon() {
@@ -36,6 +36,11 @@ export default function ProfileDropdwon() {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>{user!.email}</DropdownMenuLabel>
           <DropdownMenuSeparator />
+          {(user as FullUser).staff && (
+            <DropdownMenuItem>
+              <Link href="/admin" className="w-full flex gap-1 items-center"><GearIcon />Admin</Link>
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem>
             <Link href="/profile" className="w-full">Profile</Link>
           </DropdownMenuItem>
