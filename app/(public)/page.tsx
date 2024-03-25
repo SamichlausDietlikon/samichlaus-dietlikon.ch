@@ -164,6 +164,19 @@ export default function Home() {
         </div>
       </div>
       <div>
+        <div className="max-w-4xl m-auto my-12 px-8 space-y-4 [&>p]:max-w-4xl [&>p]:m-auto">
+          <h2 className="text-2xl text-center !mt-12">Informationen</h2>
+          <Accordion type="single" collapsible className="w-full">
+            {faq.map(({ question, answer }, index) => (
+              <AccordionItem value={`question-${index}`}>
+                <AccordionTrigger>{question}</AccordionTrigger>
+                <AccordionContent className="space-y-4">{answer}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+      <div>
         <div className="max-w-7xl m-auto my-12 px-8 space-y-4 [&>p]:max-w-4xl [&>p]:m-auto">
           <h2 className="text-2xl text-center !mt-12">Legende</h2>
           <p>
@@ -222,19 +235,6 @@ export default function Home() {
           <p>
             <em>Die Menschen waren glücklich und jubelten dem Bischof Niklaus zu.</em>
           </p>
-        </div>
-      </div>
-      <div>
-        <div className="max-w-4xl m-auto my-12 px-8 space-y-4 [&>p]:max-w-4xl [&>p]:m-auto">
-          <h2 className="text-2xl text-center !mt-12">Informationen</h2>
-          <Accordion type="single" collapsible className="w-full">
-            {faq.map(({ question, answer }, index) => (
-              <AccordionItem value={`question-${index}`}>
-                <AccordionTrigger>{question}</AccordionTrigger>
-                <AccordionContent className="space-y-4">{answer}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
         </div>
       </div>
     </section>
