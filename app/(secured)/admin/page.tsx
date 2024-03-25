@@ -1,9 +1,7 @@
 "use client";
 
-import useUser from "@/hooks/useUser";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  const { loading, user } = useUser();
-
-  return <div>Hello Admin {loading ? "Loading..." : user!.email}</div>;
+  redirect("/admin/seasons");
 }
