@@ -17,6 +17,7 @@ import { seasonStaffRoles } from "@/lib/utils";
 import MembersFormDialog from "@/components/seasons/members/members-form-dialog";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import TourFormDialog from "@/components/seasons/tours/tour-form-dialog";
 
 export default function Tours({ params }: { params: { seasonId: string } }) {
   const [tours, setTours] = useState<
@@ -43,6 +44,7 @@ export default function Tours({ params }: { params: { seasonId: string } }) {
           console.error(error);
           return;
         }
+        console.log(data);
 
         setTours(data);
       });
@@ -78,9 +80,9 @@ export default function Tours({ params }: { params: { seasonId: string } }) {
             <TableHead>Dörfer</TableHead>
             <TableHead>Aktiv</TableHead>
             <TableHead className="text-right">
-              {/* {(user as FullUser).staff_role === "admin" && (
-                <MembersFormDialog refetch={refetch} setRefetch={setRefetch} />
-              )} */}
+              {(user as FullUser).staff_role === "admin" && (
+                <TourFormDialog refetch={refetch} setRefetch={setRefetch} />
+              )}
             </TableHead>
           </TableRow>
         </TableHeader>
