@@ -2,7 +2,9 @@
 
 import { createClient } from "@/lib/supabase/client";
 import { FullUser } from "@/types/common.types";
+import { Enums } from "@/types/database.types";
 import { User } from "@supabase/supabase-js";
+import { useParams } from "next/navigation";
 import {
   Dispatch,
   ReactNode,
@@ -31,6 +33,7 @@ export function UserProvider({
   const [refetch, setRefetch] = useState(false);
 
   const supabase = createClient();
+  const {seasonId}: {seasonId: string} = useParams()
 
   async function getUser() {
     const { data, error } = await supabase.auth.getUser();
@@ -51,7 +54,7 @@ export function UserProvider({
     const { data } = await supabase
       .from("users")
       .select()
-      .eq("id", user!.id)
+      .eq("id", user.id)
       .limit(1)
       .maybeSingle();
     // const { data: userAdmin} = await supabase.from("user_admins").select("is_admin").eq("id", user.id).limit(1).maybeSingle();
@@ -61,12 +64,34 @@ export function UserProvider({
       return;
     }
 
-    // TODO: Check if user is tour manager in current season and then set staff_role accordingly
+    let staff_role: "admin"|Enums<"staff_roles">|null = null;
+    let staff = false;
 
-    // Merge all user data together
-    setUser({ email: user?.email, ...data, staff_role: "admin" });
+    const {data: userIsAdmin} = await supabase.from("user_admins").select().eq("id", user.id).maybeSingle()
 
+    if(userIsAdmin) {
+      staff_role = "admin"
+      staff = true
+    } 
+
+    if(seasonId) {
+      const {data: seasonMember} = await supabase.from("season_members").select().eq("user_id", user.id).eq("season_id", seasonId).maybeSingle()
+      
+      if(seasonMember) {
+        staff_role = seasonMember.staff_role
+        staff = true
+      }
+    }
+    
+    const {data: staffMember} = await supabase.from("season_members").select().eq("user_id", user.id).maybeSingle()
+    
+    if(staffMember) {
+      staff = true
+    }
+
+    setUser({ email: user?.email, ...data, staff_role, staff});          
     setLoading(false);
+    return
   }
 
   useEffect(() => {
