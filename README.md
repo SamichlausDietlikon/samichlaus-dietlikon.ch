@@ -46,6 +46,14 @@ supabase stop
 source .env
 ```
 
+```
+git pull && supabase migration up && npm install
+```
+
+```
+supabase db pull --local && supabase gen types typescript --local > types/database.types.ts
+```
+
 Template .env:
 
 ```bash
