@@ -115,7 +115,10 @@ export default function CalendarFormDialog({
           )}
         </DialogHeader>
         <div>
-          <Label>Titel<RequiredStar /></Label>
+          <Label>
+            Titel
+            <RequiredStar />
+          </Label>
           <Input
             type="text"
             value={calendarTitle}

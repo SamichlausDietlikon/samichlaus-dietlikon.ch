@@ -72,7 +72,10 @@ export default function Profile() {
         <CardContent className="flex flex-col gap-4">
           <div className="flex w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5 w-full">
-              <Label htmlFor="firstName">Vorname<RequiredStar /></Label>
+              <Label htmlFor="firstName">
+                Vorname
+                <RequiredStar />
+              </Label>
               <Input
                 type="text"
                 id="firstName"
@@ -82,7 +85,10 @@ export default function Profile() {
               />
             </div>
             <div className="flex flex-col space-y-1.5 w-full">
-              <Label htmlFor="lastName">Nachname<RequiredStar /></Label>
+              <Label htmlFor="lastName">
+                Nachname
+                <RequiredStar />
+              </Label>
               <Input
                 type="text"
                 id="lastName"

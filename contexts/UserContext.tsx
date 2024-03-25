@@ -33,7 +33,7 @@ export function UserProvider({
   const [refetch, setRefetch] = useState(false);
 
   const supabase = createClient();
-  const {seasonId}: {seasonId: string} = useParams()
+  const { seasonId }: { seasonId: string } = useParams();
 
   async function getUser() {
     const { data, error } = await supabase.auth.getUser();
@@ -64,34 +64,47 @@ export function UserProvider({
       return;
     }
 
-    let staff_role: "admin"|Enums<"staff_roles">|null = null;
+    let staff_role: "admin" | Enums<"staff_roles"> | null = null;
     let staff = false;
 
-    const {data: userIsAdmin} = await supabase.from("user_admins").select().eq("id", user.id).maybeSingle()
+    const { data: userIsAdmin } = await supabase
+      .from("user_admins")
+      .select()
+      .eq("id", user.id)
+      .maybeSingle();
 
-    if(userIsAdmin) {
-      staff_role = "admin"
-      staff = true
-    } 
+    if (userIsAdmin) {
+      staff_role = "admin";
+      staff = true;
+    }
 
-    if(seasonId) {
-      const {data: seasonMember} = await supabase.from("season_members").select().eq("user_id", user.id).eq("season_id", seasonId).maybeSingle()
-      
-      if(seasonMember) {
-        staff_role = seasonMember.staff_role
-        staff = true
+    if (seasonId) {
+      const { data: seasonMember } = await supabase
+        .from("season_members")
+        .select()
+        .eq("user_id", user.id)
+        .eq("season_id", seasonId)
+        .maybeSingle();
+
+      if (seasonMember) {
+        staff_role = seasonMember.staff_role;
+        staff = true;
       }
     }
-    
-    const {data: staffMember} = await supabase.from("season_members").select().eq("user_id", user.id).maybeSingle()
-    
-    if(staffMember) {
-      staff = true
+
+    const { data: staffMember } = await supabase
+      .from("season_members")
+      .select()
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (staffMember) {
+      staff = true;
     }
 
-    setUser({ email: user?.email, ...data, staff_role, staff});          
+    setUser({ email: user?.email, ...data, staff_role, staff });
     setLoading(false);
-    return
+    return;
   }
 
   useEffect(() => {

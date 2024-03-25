@@ -156,7 +156,10 @@ export default function SeasonTemplateFromDialog({
         {templates && (
           <>
             <div>
-              <Label>Vorlage<RequiredStar /></Label>
+              <Label>
+                Vorlage
+                <RequiredStar />
+              </Label>
               <Select
                 onValueChange={(template) => setSeasonTemplateId(parseInt(template))}
                 defaultValue={seasonTemplateId?.toString()}
@@ -181,7 +184,10 @@ export default function SeasonTemplateFromDialog({
             </div>
             {seasonTemplateId && (
               <div>
-                <Label>Version<RequiredStar /></Label>
+                <Label>
+                  Version
+                  <RequiredStar />
+                </Label>
                 <Select
                   onValueChange={(version) =>
                     setSeasonTemplateVersionId(parseInt(version))

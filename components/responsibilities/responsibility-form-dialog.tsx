@@ -43,12 +43,10 @@ export default function ResponsibilityFormDialog({
   }
 
   async function handleCreate() {
-    const { status, error } = await supabase
-      .from("responsibilities")
-      .insert({
-        name: responsibilityName,
-        time_overlapping: responsibilityTimeOverlapping,
-      });
+    const { status, error } = await supabase.from("responsibilities").insert({
+      name: responsibilityName,
+      time_overlapping: responsibilityTimeOverlapping,
+    });
 
     if (status === 201) {
       toast.success(`Funktion ${responsibilityName} erfolgreich erstellt`);
@@ -101,7 +99,10 @@ export default function ResponsibilityFormDialog({
           )}
         </DialogHeader>
         <div>
-          <Label>Name<RequiredStar /></Label>
+          <Label>
+            Name
+            <RequiredStar />
+          </Label>
           <Input
             type="text"
             value={responsibilityName}

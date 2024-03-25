@@ -99,7 +99,10 @@ export default function VersionForm({
         <div className="flex w-full gap-4 items-center">
           {(tourVersion?.tag === "development" || !tourVersion) && (
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="version">Version<RequiredStar /></Label>
+              <Label htmlFor="version">
+                Version
+                <RequiredStar />
+              </Label>
               <Input
                 type="number"
                 id="version"
@@ -110,7 +113,10 @@ export default function VersionForm({
             </div>
           )}
           <div className="flex flex-col space-y-1.5">
-            <Label htmlFor="lastName">Tag<RequiredStar /></Label>
+            <Label htmlFor="lastName">
+              Tag
+              <RequiredStar />
+            </Label>
             <Select
               onValueChange={(tag) => setTag(tag as Enums<"tour_template_tags">)}
               defaultValue={tag}
@@ -160,7 +166,10 @@ export default function VersionForm({
             />
           </div>
           <div className="space-y-1.5">
-            <Label>Vorlage<RequiredStar /></Label>
+            <Label>
+              Vorlage
+              <RequiredStar />
+            </Label>
             <Editor
               height="48rem"
               theme="vs-dark"

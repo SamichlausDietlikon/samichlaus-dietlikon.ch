@@ -23,17 +23,17 @@ export default function Login() {
   async function handleSubmit() {
     const supabase = createClient();
 
-    const {error} = await supabase.auth.signInWithOtp({
+    const { error } = await supabase.auth.signInWithOtp({
       email,
     });
 
-    if(error) {
-      console.error(error)
-      toast.error(`Fehler: ${JSON.stringify(error)}`)
-      return
+    if (error) {
+      console.error(error);
+      toast.error(`Fehler: ${JSON.stringify(error)}`);
+      return;
     }
 
-    toast.success("Anmeldelink erfolgreich versendet")
+    toast.success("Anmeldelink erfolgreich versendet");
   }
 
   return (
@@ -49,7 +49,10 @@ export default function Login() {
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="email">Email<RequiredStar /></Label>
+              <Label htmlFor="email">
+                Email
+                <RequiredStar />
+              </Label>
               <Input
                 type="email"
                 id="email"

@@ -65,10 +65,14 @@ export default function MainNav({
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-36">
                 <DropdownMenuItem>
-                  <Link href="/apply/family" className="w-full">Familienbesuche</Link>
+                  <Link href="/apply/family" className="w-full">
+                    Familienbesuche
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/apply/business" className="w-full">Schulen & Firmen</Link>
+                  <Link href="/apply/business" className="w-full">
+                    Schulen & Firmen
+                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -84,13 +88,19 @@ export default function MainNav({
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-36">
                 <DropdownMenuItem>
-                  <Link href="/about" className="w-full">Über uns</Link>
+                  <Link href="/about" className="w-full">
+                    Über uns
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/join" className="w-full">Mitglied werden</Link>
+                  <Link href="/join" className="w-full">
+                    Mitglied werden
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/contact" className="w-full">Kontakt</Link>
+                  <Link href="/contact" className="w-full">
+                    Kontakt
+                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

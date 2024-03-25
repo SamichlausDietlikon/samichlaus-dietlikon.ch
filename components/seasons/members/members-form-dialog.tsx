@@ -148,12 +148,18 @@ export default function MembersFormDialog({
           </DialogHeader>
           {!member && (
             <div className="flex flex-col space-y-1.5">
-              <Label>Mitglied<RequiredStar /></Label>
+              <Label>
+                Mitglied
+                <RequiredStar />
+              </Label>
               <Combobox data={users} value={memberId || ""} setValue={setMemberId} />
             </div>
           )}
           <div>
-            <Label>Rolle<RequiredStar /></Label>
+            <Label>
+              Rolle
+              <RequiredStar />
+            </Label>
             <Select
               onValueChange={(role) => setStaffRole(role as Enums<"staff_roles">)}
               defaultValue={staffRole || undefined}

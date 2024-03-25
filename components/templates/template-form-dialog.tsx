@@ -69,7 +69,10 @@ export default function TemplateFormDialog({
           <DialogTitle>Erstelle eine Vorlage</DialogTitle>
         </DialogHeader>
         <div>
-          <Label>Titel<RequiredStar /></Label>
+          <Label>
+            Titel
+            <RequiredStar />
+          </Label>
           <Input
             type="text"
             value={templateTitle ?? ""}

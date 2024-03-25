@@ -30,14 +30,12 @@ export default function Setup() {
   async function handleSubmit() {
     const supabase = createClient();
 
-    const { status, error } = await supabase
-      .from("users")
-      .insert({
-        id: (await supabase.auth.getUser()).data.user!.id,
-        first_name: firstName,
-        last_name: lastName,
-        store_email: true,
-      });
+    const { status, error } = await supabase.from("users").insert({
+      id: (await supabase.auth.getUser()).data.user!.id,
+      first_name: firstName,
+      last_name: lastName,
+      store_email: true,
+    });
 
     if (status === 201) {
       toast.success("Einrichtung erfolgreich abgeschlossen");
@@ -60,7 +58,10 @@ export default function Setup() {
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="first_name">Vorname<RequiredStar /></Label>
+              <Label htmlFor="first_name">
+                Vorname
+                <RequiredStar />
+              </Label>
               <Input
                 type="first_name"
                 id="first_name"
@@ -70,7 +71,10 @@ export default function Setup() {
               />
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="last_name">Nachname<RequiredStar /></Label>
+              <Label htmlFor="last_name">
+                Nachname
+                <RequiredStar />
+              </Label>
               <Input
                 type="last_name"
                 id="last_name"

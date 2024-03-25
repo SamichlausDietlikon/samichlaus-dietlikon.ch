@@ -24,34 +24,47 @@ export default function ProfileDropdwon() {
     <div className="text-sm my-auto">Loading...</div>
   ) : (
     <>
-    {user ? (
-      <DropdownMenu>
-        <DropdownMenuTrigger className={navigationMenuTriggerStyle()}>
-          {(user as FullUser).first_name} {(user as FullUser).last_name}
-          <ChevronDownIcon
-            className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
-            aria-hidden="true"
-          />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuLabel>{user!.email}</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          {(user as FullUser).staff && (
+      {user ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger className={navigationMenuTriggerStyle()}>
+            {(user as FullUser).first_name} {(user as FullUser).last_name}
+            <ChevronDownIcon
+              className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
+              aria-hidden="true"
+            />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>{user!.email}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {(user as FullUser).staff && (
+              <DropdownMenuItem>
+                <Link href="/admin" className="w-full flex gap-1 items-center">
+                  <GearIcon />
+                  Admin
+                </Link>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem>
-              <Link href="/admin" className="w-full flex gap-1 items-center"><GearIcon />Admin</Link>
+              <Link href="/profile" className="w-full">
+                Profile
+              </Link>
             </DropdownMenuItem>
-          )}
-          <DropdownMenuItem>
-            <Link href="/profile" className="w-full">Profile</Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="hover:cursor-pointer" onClick={() => supabase.auth.signOut()}>
-            Log out
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ): (
-      <Link href="/auth/login" className="text-sm my-auto bg-background hover:bg-accent hover:text-accent-foreground duration-300 px-4 py-2 rounded-md">Login</Link>
-    )}
+            <DropdownMenuItem
+              className="hover:cursor-pointer"
+              onClick={() => supabase.auth.signOut()}
+            >
+              Log out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
+        <Link
+          href="/auth/login"
+          className="text-sm my-auto bg-background hover:bg-accent hover:text-accent-foreground duration-300 px-4 py-2 rounded-md"
+        >
+          Login
+        </Link>
+      )}
     </>
   );
 }

@@ -89,7 +89,10 @@ export default function VillageFormDialog({
           )}
         </DialogHeader>
         <div>
-          <Label>Name<RequiredStar /></Label>
+          <Label>
+            Name
+            <RequiredStar />
+          </Label>
           <Input
             type="text"
             value={villageName}

@@ -45,7 +45,9 @@ export default function AdminNav({
               <DropdownMenuContent align="end" className="w-36">
                 {components.map((component) => (
                   <DropdownMenuItem key={component.title}>
-                    <Link href={component.href} className="w-full">{component.title}</Link>
+                    <Link href={component.href} className="w-full">
+                      {component.title}
+</Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>

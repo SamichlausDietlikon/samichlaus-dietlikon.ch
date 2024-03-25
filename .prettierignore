@@ -5,3 +5,4 @@ node_modules
 package-lock.json
 .next
 types/database.types.ts
+supabase/.temp

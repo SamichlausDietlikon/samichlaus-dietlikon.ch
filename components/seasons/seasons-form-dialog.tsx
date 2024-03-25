@@ -114,7 +114,10 @@ export default function SeasonsFromDialog({
           )}
         </DialogHeader>
         <div>
-          <Label>Name<RequiredStar /></Label>
+          <Label>
+            Name
+            <RequiredStar />
+          </Label>
           <Input
             type="text"
             value={seasonName}
@@ -124,14 +127,20 @@ export default function SeasonsFromDialog({
         </div>
         <div className="flex gap-4">
           <div className="flex flex-col space-y-1.5 w-full">
-            <Label>Start<RequiredStar /></Label>
+            <Label>
+              Start
+              <RequiredStar />
+            </Label>
             <DateTimePicker
               value={{ date: seasonFrom, hasTime: true }}
               onChange={(datetime) => setSeasonFrom(datetime.date)}
             />
           </div>
           <div className="flex flex-col space-y-1.5 w-full">
-            <Label>Ende<RequiredStar /></Label>
+            <Label>
+              Ende
+              <RequiredStar />
+            </Label>
             <DateTimePicker
               value={{ date: seasonUntil, hasTime: true }}
               onChange={(datetime) => setSeasonUntil(datetime.date)}

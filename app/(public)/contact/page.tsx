@@ -21,8 +21,10 @@ export default function Contact() {
       </p>
       <h2 className="text-2xl text-center !mt-12">Kontaktformular</h2>
       <p>
-        <Link href="mailto:samichlaus@samichlaus-dietlikon.ch?subject=Kontakt aufnehmen&body=Guten Tag Samichlaus%0D%0A%0D%0AVorname: %0D%0ANachname: %0D%0AAdresse: %0D%0APLZ/Ort: %0D%0ATelefon: %0D%0A"
-        className="flex items-center gap-1 justify-center px-8 py-4 bg-gray-100 hover:bg-gray-200 duration-300 rounded-md">
+        <Link
+          href="mailto:samichlaus@samichlaus-dietlikon.ch?subject=Kontakt aufnehmen&body=Guten Tag Samichlaus%0D%0A%0D%0AVorname: %0D%0ANachname: %0D%0AAdresse: %0D%0APLZ/Ort: %0D%0ATelefon: %0D%0A"
+          className="flex items-center gap-1 justify-center px-8 py-4 bg-gray-100 hover:bg-gray-200 duration-300 rounded-md"
+        >
           per Email <ExternalLinkIcon />
         </Link>
       </p>
