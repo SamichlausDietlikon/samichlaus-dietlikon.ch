@@ -19,24 +19,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 
-function ListItem({ className, title, children, ...props }: { [prop: string]: string }) {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          className={cn(
-            "block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  );
-}
-
 export default function AdminNav({
   components,
 }: {
@@ -63,7 +45,7 @@ export default function AdminNav({
               <DropdownMenuContent align="end" className="w-36">
                 {components.map((component) => (
                   <DropdownMenuItem key={component.title}>
-                    <Link href={component.href}>{component.title}</Link>
+                    <Link href={component.href} className="w-full">{component.title}</Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>

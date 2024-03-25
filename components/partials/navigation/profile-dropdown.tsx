@@ -37,7 +37,7 @@ export default function ProfileDropdwon() {
           <DropdownMenuLabel>{user!.email}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <Link href="/profile">Profile</Link>
+            <Link href="/profile" className="w-full">Profile</Link>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => supabase.auth.signOut()}>
             Log out
