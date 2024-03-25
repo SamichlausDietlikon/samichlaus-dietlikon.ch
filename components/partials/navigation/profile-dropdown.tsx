@@ -39,7 +39,7 @@ export default function ProfileDropdwon() {
           <DropdownMenuItem>
             <Link href="/profile" className="w-full">Profile</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => supabase.auth.signOut()}>
+          <DropdownMenuItem className="hover:cursor-pointer" onClick={() => supabase.auth.signOut()}>
             Log out
           </DropdownMenuItem>
         </DropdownMenuContent>
