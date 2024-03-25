@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
+import { toast } from "sonner";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -21,13 +22,22 @@ export default function Login() {
   async function handleSubmit() {
     const supabase = createClient();
 
-    await supabase.auth.signInWithOtp({
+    const {error} = await supabase.auth.signInWithOtp({
       email,
     });
+
+    if(error) {
+      console.error(error)
+      toast.error(`Fehler: ${JSON.stringify(error)}`)
+      return
+    }
+
+    toast.success("Anmeldelink erfolgreich versendet")
   }
 
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    // Full height is 100vh minus the two headers (64px height + 1px border)
+    <div className="w-full h-[calc(100vh-65px*2)] flex justify-center items-center">
       <Card className="w-[400px]">
         <CardHeader>
           <CardTitle>Als Nutzer anmelden</CardTitle>

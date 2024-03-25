@@ -75,8 +75,8 @@ export default function Sidebar() {
   }
 
   return (
-    // Calc 100vh minus 65px because of header height (64px height + 1px border)
-    <aside className="min-w-48 h-[calc(100vh-65px)] border-r bg-white border-gray-200 p-4">
+    // Full height is 100vh minus the two headers (64px height + 1px border)
+    <aside className="min-w-48 h-[calc(100vh-65px*2)] border-r bg-white border-gray-200 p-4">
       <SeasonsFromDialog refetch={refetch} setRefetch={setRefetch} />
       {seasons && seasons.length > 0 && (
         <div>
