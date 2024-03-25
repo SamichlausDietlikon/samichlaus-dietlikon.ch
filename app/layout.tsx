@@ -18,10 +18,14 @@ export default function RootLayout({
     <html lang="de">
       <body className={inter.className}>
         <UserProvider>
-          <Header />
-          {children}
-          <Toaster closeButton richColors />
-          <Footer />
+          <div className="flex flex-col min-h-screen">
+            <div className="flex-[1]">
+              <Header />
+              {children}
+            </div>
+            <Toaster closeButton richColors />
+            <Footer />
+          </div>
         </UserProvider>
       </body>
     </html>

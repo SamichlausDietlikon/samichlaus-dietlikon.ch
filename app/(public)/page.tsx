@@ -123,7 +123,7 @@ export default function Home() {
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
 
   return (
-    <section className="space-y-8 [&>*]:border-b [&>*]:border-gray-200">
+    <section className="space-y-8 [&>*:not(:last-child)]:border-b [&>*]:border-gray-200">
       <div>
         <Carousel
           plugins={[plugin.current]}
