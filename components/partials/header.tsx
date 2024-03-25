@@ -5,6 +5,7 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import AdminNav from "./navigation/admin-nav";
 import MainNav from "./navigation/main-nav";
+import Link from "next/link";
 
 const components: { title: string; href: string }[] = [
   {
@@ -32,10 +33,10 @@ export default function Header() {
     !pathname.startsWith("/admin/setup") && (
       <nav>
         <div className="border-b border-gray-200">
-          <div className="max-w-7xl mx-auto flex h-16 items-center gap-4 text-xl py-4 w-full px-4 sm:px-6 lg:px-8">
+          <Link href="/" className="max-w-7xl mx-auto flex h-16 items-center gap-4 text-xl py-4 w-full px-4 sm:px-6 lg:px-8">
             <Logo />
             St. Nikolaus-Gesellschaft Dietlikon, Wangen-Brüttisellen
-          </div>
+          </Link>
         </div>
         <div className="border-b border-gray-200">
           <div className="max-w-7xl mx-auto flex items-center h-16 w-full px-4 sm:px-6 lg:px-8">
