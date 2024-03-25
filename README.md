@@ -60,6 +60,8 @@ Template .env:
 NEXT_PUBLIC_SUPABASE_ANON_KEY=ey...
 ```
 
+> For better TS Error handling use the extension `Pretty TypeScript Errors`
+
 > Prettier extension is helpful & running `npm run format` before a PR
 
 > From Shadcn UI are all components.
