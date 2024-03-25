@@ -16,6 +16,7 @@ import { Button } from "../ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import { DateTimePicker } from "../common/datetime-picker";
+import RequiredStar from "../common/required-star";
 
 export default function SeasonsFromDialog({
   season,
@@ -113,7 +114,7 @@ export default function SeasonsFromDialog({
           )}
         </DialogHeader>
         <div>
-          <Label>Name</Label>
+          <Label>Name<RequiredStar /></Label>
           <Input
             type="text"
             value={seasonName}
@@ -123,14 +124,14 @@ export default function SeasonsFromDialog({
         </div>
         <div className="flex gap-4">
           <div className="flex flex-col space-y-1.5 w-full">
-            <Label>Start</Label>
+            <Label>Start<RequiredStar /></Label>
             <DateTimePicker
               value={{ date: seasonFrom, hasTime: true }}
               onChange={(datetime) => setSeasonFrom(datetime.date)}
             />
           </div>
           <div className="flex flex-col space-y-1.5 w-full">
-            <Label>Ende</Label>
+            <Label>Ende<RequiredStar /></Label>
             <DateTimePicker
               value={{ date: seasonUntil, hasTime: true }}
               onChange={(datetime) => setSeasonUntil(datetime.date)}

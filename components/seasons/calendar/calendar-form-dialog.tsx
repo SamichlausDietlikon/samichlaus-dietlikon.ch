@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { useParams } from "next/navigation";
 import { DateTimePicker } from "@/components/common/datetime-picker";
 import { Input } from "@/components/ui/input";
+import RequiredStar from "@/components/common/required-star";
 
 export default function CalendarFormDialog({
   calendarEntry,
@@ -114,7 +115,7 @@ export default function CalendarFormDialog({
           )}
         </DialogHeader>
         <div>
-          <Label>Titel</Label>
+          <Label>Titel<RequiredStar /></Label>
           <Input
             type="text"
             value={calendarTitle}

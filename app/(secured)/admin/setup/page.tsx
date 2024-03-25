@@ -17,6 +17,7 @@ import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import useUser from "@/hooks/useUser";
+import RequiredStar from "@/components/common/required-star";
 
 export default function Setup() {
   const [firstName, setFirstName] = useState("");
@@ -59,7 +60,7 @@ export default function Setup() {
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="first_name">Vorname</Label>
+              <Label htmlFor="first_name">Vorname<RequiredStar /></Label>
               <Input
                 type="first_name"
                 id="first_name"
@@ -69,7 +70,7 @@ export default function Setup() {
               />
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="last_name">Nachname</Label>
+              <Label htmlFor="last_name">Nachname<RequiredStar /></Label>
               <Input
                 type="last_name"
                 id="last_name"

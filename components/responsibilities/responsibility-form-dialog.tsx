@@ -15,6 +15,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
+import RequiredStar from "../common/required-star";
 
 export default function ResponsibilityFormDialog({
   responsibility,
@@ -100,7 +101,7 @@ export default function ResponsibilityFormDialog({
           )}
         </DialogHeader>
         <div>
-          <Label>Name</Label>
+          <Label>Name<RequiredStar /></Label>
           <Input
             type="text"
             value={responsibilityName}

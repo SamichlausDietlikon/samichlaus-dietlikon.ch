@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from "../../ui/select";
 import { useParams } from "next/navigation";
+import RequiredStar from "@/components/common/required-star";
 
 export default function SeasonTemplateFromDialog({
   seasonTemplate,
@@ -155,7 +156,7 @@ export default function SeasonTemplateFromDialog({
         {templates && (
           <>
             <div>
-              <Label>Vorlage</Label>
+              <Label>Vorlage<RequiredStar /></Label>
               <Select
                 onValueChange={(template) => setSeasonTemplateId(parseInt(template))}
                 defaultValue={seasonTemplateId?.toString()}
@@ -180,7 +181,7 @@ export default function SeasonTemplateFromDialog({
             </div>
             {seasonTemplateId && (
               <div>
-                <Label>Version</Label>
+                <Label>Version<RequiredStar /></Label>
                 <Select
                   onValueChange={(version) =>
                     setSeasonTemplateVersionId(parseInt(version))

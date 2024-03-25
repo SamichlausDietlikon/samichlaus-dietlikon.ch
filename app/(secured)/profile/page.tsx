@@ -18,6 +18,7 @@ import { FullUser } from "@/types/common.types";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import InfoTooltip from "@/components/common/info-tooltip";
+import RequiredStar from "@/components/common/required-star";
 
 export default function Profile() {
   const supabase = createClient();
@@ -71,7 +72,7 @@ export default function Profile() {
         <CardContent className="flex flex-col gap-4">
           <div className="flex w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5 w-full">
-              <Label htmlFor="firstName">Vorname</Label>
+              <Label htmlFor="firstName">Vorname<RequiredStar /></Label>
               <Input
                 type="text"
                 id="firstName"
@@ -81,7 +82,7 @@ export default function Profile() {
               />
             </div>
             <div className="flex flex-col space-y-1.5 w-full">
-              <Label htmlFor="lastName">Vorname</Label>
+              <Label htmlFor="lastName">Nachname<RequiredStar /></Label>
               <Input
                 type="text"
                 id="lastName"

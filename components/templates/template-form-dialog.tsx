@@ -16,6 +16,7 @@ import { Button } from "../ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import { Textarea } from "../ui/textarea";
+import RequiredStar from "../common/required-star";
 
 export default function TemplateFormDialog({
   refetch,
@@ -68,7 +69,7 @@ export default function TemplateFormDialog({
           <DialogTitle>Erstelle eine Vorlage</DialogTitle>
         </DialogHeader>
         <div>
-          <Label>Titel</Label>
+          <Label>Titel<RequiredStar /></Label>
           <Input
             type="text"
             value={templateTitle ?? ""}
