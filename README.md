@@ -60,6 +60,8 @@ Template .env:
 NEXT_PUBLIC_SUPABASE_ANON_KEY=ey...
 ```
 
+> Prettier extension is helpful & running `npm run format` before a PR
+
 > From Shadcn UI are all components.
 
 Checklist before staging/prod:
