@@ -41,25 +41,6 @@ function MultiSelect({
     onChange(selected.filter((i) => i !== item));
   };
 
-  const [newOption, setNewOption] = React.useState("");
-
-  const handleNewOptionEntry = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewOption(e.target.value);
-  };
-
-  const handleNewOptionSubmit = () => {
-    if (newOption) {
-      options.push({ label: newOption, value: newOption });
-      onChange(
-        selected.includes(newOption)
-          ? selected.filter((item) => item !== newOption)
-          : [...selected, newOption]
-      );
-      setNewOption("");
-      setOpen(true);
-    }
-  };
-
   return (
     <Popover open={open} onOpenChange={setOpen} {...props}>
       <PopoverTrigger asChild>
@@ -67,18 +48,13 @@ function MultiSelect({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={`w-full justify-between ${selected.length > 1 ? "h-full" : "h-10"}`}
+          className={`w-full justify-between ${selected.length > 1 ? "h-auto" : "h-10"}`}
           onClick={() => setOpen(!open)}
         >
-          <div className="flex gap-1 flex-wrap">
+          <div className="flex gap-1 flex-wrap items-center">
             {selected.map((item) => (
-              <Badge
-                variant="secondary"
-                key={item}
-                className="mr-1 mb-1"
-                onClick={() => handleUnselect(item)}
-              >
-                {item}
+              <Badge variant="secondary" key={item} onClick={() => handleUnselect(item)}>
+                {options.filter((option) => option.value == item)[0].label}
                 <button
                   className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                   onKeyDown={(e) => {
