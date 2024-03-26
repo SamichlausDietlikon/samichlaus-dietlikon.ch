@@ -1,5 +1,6 @@
 "use client";
 
+import { Separator } from "@/components/ui/separator";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
@@ -28,7 +29,7 @@ export default function Contact() {
           per Email <ExternalLinkIcon />
         </Link>
       </p>
-      <hr className="border-gray-200" />
+      <Separator />
       <div className="flex justify-between gap-4">
         <p>
           <span className="font-semibold">
