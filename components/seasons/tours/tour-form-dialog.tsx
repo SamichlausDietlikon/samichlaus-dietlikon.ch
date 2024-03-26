@@ -19,7 +19,6 @@ import { DateTimePicker } from "@/components/common/datetime-picker";
 import { Input } from "@/components/ui/input";
 import RequiredStar from "@/components/common/required-star";
 import { Checkbox } from "@/components/ui/checkbox";
-import { parse } from "path";
 import {
   Select,
   SelectContent,
@@ -29,6 +28,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { MultiSelect } from "@/components/common/multi-select";
+import { Separator } from "@/components/ui/separator";
 
 export default function TourFormDialog({
   tour,
@@ -128,7 +128,7 @@ export default function TourFormDialog({
   }
 
   async function handleCreate() {
-    if (!tourName || !tourFrom || !tourUntil || !tourVillages || !tourTemplateVersionId) {
+    if (!tourName || !tourFrom || !tourUntil || !tourVillages) {
       toast.error("Bitte fülle alle benötigten Felder aus");
       return;
     }
@@ -146,7 +146,7 @@ export default function TourFormDialog({
         until: tourUntil.toISOString(),
         active: tourActive,
         season_id: parseInt(params.seasonId as string),
-        tour_template_version_id: tourTemplateVersionId,
+        ...(tourTemplateVersionId && { tour_template_version_id: tourTemplateVersionId }),
       })
       .select()
       .single();
@@ -285,10 +285,24 @@ export default function TourFormDialog({
           </div>
         </div>
         <div>
-          <Label>
-            Vorlage
-            <RequiredStar />
-          </Label>
+          <Label>Dörfer</Label>
+          <MultiSelect
+            onChange={setTourVillageIds}
+            options={tourVillages!}
+            selected={tourVillageIds}
+          />
+        </div>
+        <div className="flex space-x-1.5 items-center">
+          <Checkbox checked={tourActive} onClick={() => setTourActive(!tourActive)} />
+          <Label>Ist Aktiv</Label>
+        </div>
+        <div className="flex gap-2 items-center">
+          <Separator className="shrink" />
+          <p className="text-sm text-nowrap text-gray-500">Für buchbare Touren</p>
+          <Separator className="shrink" />
+        </div>
+        <div>
+          <Label>Vorlage</Label>
           <Select
             onValueChange={(template) => setTourTemplateVersionId(parseInt(template))}
             defaultValue={tourTemplateVersionId?.toString()}
@@ -314,18 +328,6 @@ export default function TourFormDialog({
               </SelectGroup>
             </SelectContent>
           </Select>
-        </div>
-        <div>
-          <Label>Dörfer</Label>
-          <MultiSelect
-            onChange={setTourVillageIds}
-            options={tourVillages!}
-            selected={tourVillageIds}
-          />
-        </div>
-        <div className="flex space-x-1.5 items-center">
-          <Checkbox checked={tourActive} onClick={() => setTourActive(!tourActive)} />
-          <Label>Ist Aktiv</Label>
         </div>
         <DialogFooter>
           <Button variant="link" onClick={() => resetAndClose()}>
