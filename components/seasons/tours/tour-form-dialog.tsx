@@ -89,14 +89,25 @@ export default function TourFormDialog({
 
       if (error) {
         console.error(error);
+        toast.error(`Fehler: ${error}`);
+        return;
+      }
+
+      const { data: villagesData, error: villagesError } = await supabase
+        .from("villages")
+        .select("*");
+
+      if (villagesError) {
+        console.error(error);
+        toast.error(`Fehler: ${villagesError}`);
         return;
       }
 
       setSeasonTemplates(data);
       setTourVillages(
-        data.map((village) => ({
+        villagesData.map((village) => ({
           value: village.id.toString(),
-          label: village.tour_template_versions!.tour_template!.title,
+          label: village.name,
         }))
       );
     }
@@ -109,12 +120,6 @@ export default function TourFormDialog({
     setTourFrom(tour?.from ? new Date(tour?.from) : null);
     setTourUntil(tour?.until ? new Date(tour?.until) : null);
     setTourActive(tour?.active ?? true);
-    setTourVillages(
-      tour?.villages.map((village) => ({
-        value: village.village_id.toString(),
-        label: village.village!.name,
-      }))
-    );
     setTourVillageIds(
       tour?.villages.map((village) => village.village_id.toString()) ?? []
     );
