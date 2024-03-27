@@ -50,20 +50,17 @@ export default function Tours({ params }: { params: { seasonId: string } }) {
       });
   }, [refetch, supabase]);
 
-  // async function handleRemove(memberId: number) {
-  //   const { error } = await supabase
-  //     .from("season_members")
-  //     .delete()
-  //     .eq("user_id", memberId!);
+  async function handleRemove(tourId: number) {
+    const { error } = await supabase.from("season_tours").delete().eq("id", tourId);
 
-  //   if (!error) {
-  //     toast.success(<span>Mitglied wurde wurde erfolgreich entfernt</span>);
-  //     setRefetch(!refetch);
-  //     return;
-  //   }
+    if (!error) {
+      toast.success("Tour wurde erfolgreich gelöscht");
+      setRefetch(!refetch);
+      return;
+    }
 
-  //   toast.error(`Fehler: ${JSON.stringify(error)}`);
-  // }
+    toast.error(`Fehler: ${JSON.stringify(error)}`);
+  }
 
   return loading ? (
     <div>Loading...</div>
@@ -104,22 +101,18 @@ export default function Tours({ params }: { params: { seasonId: string } }) {
               </TableCell>
               <TableCell>{tour.active ? "Ja" : "Nein"}</TableCell>
               <TableCell className="text-right">
-                {/* <Button
+                <Button
                   variant="link"
                   size="sm"
-                  onClick={() => handleRemove(member.id)}
+                  onClick={() => handleRemove(tour.id)}
                   className="text-red-400 hover:text-red-500"
                 >
                   Entfernen
                 </Button>
-                {(user as FullUser).staff_role === "admin" &&
-                  member.users?.id !== user?.id && (
-                    <MembersFormDialog
-                      member={member}
-                      refetch={refetch}
-                      setRefetch={setRefetch}
-                    />
-                  )} */}
+                {((user as FullUser).staff_role === "admin" ||
+                  (user as FullUser).staff_role === "tour_manager") && (
+                  <TourFormDialog tour={tour} refetch={refetch} setRefetch={setRefetch} />
+                )}
               </TableCell>
             </TableRow>
           ))}
