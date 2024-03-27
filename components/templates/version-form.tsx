@@ -20,6 +20,7 @@ import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import RequiredStar from "../common/required-star";
+import { validateTourTemplate } from "@/lib/jsonValidator";
 
 export default function VersionForm({
   template,
@@ -48,6 +49,30 @@ export default function VersionForm({
   async function handleCreate() {
     if (!version || !tag || !versionCode) {
       toast.error("Bitte fülle alle benötigten Felder aus");
+      return;
+    }
+
+    try {
+      const parsedVersionCode = JSON.parse(versionCode);
+      if (!parsedVersionCode && typeof parsedVersionCode !== "object") {
+        toast.error("Invalid JSON");
+        return;
+      }
+    } catch (e) {
+      toast.error("Invalid JSON");
+      return;
+    }
+
+    const validTourTemplate = validateTourTemplate(JSON.parse(versionCode));
+
+    if (!validTourTemplate) {
+      toast.error(
+        `Fehle in der Vorlage: ${validateTourTemplate.errors
+          ?.map((error) => {
+            if (error.keyword !== "anyOf") return error.message;
+          })
+          .join(", ")}`
+      );
       return;
     }
 
