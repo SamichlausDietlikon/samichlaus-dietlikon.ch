@@ -48,7 +48,7 @@ export default function TourFormDialog({
   const [tourComment, setTourComment] = useState(tour?.comment);
   const [tourFrom, setTourFrom] = useState(tour?.from ? new Date(tour?.from) : null);
   const [tourUntil, setTourUntil] = useState(tour?.until ? new Date(tour?.until) : null);
-  const [tourActive, setTourActive] = useState(tour?.active ?? true);
+  const [tourActive, setTourActive] = useState(!!tour?.active);
   const [tourVillages, setTourVillages] = useState<
     { value: string; label: string }[] | undefined
   >(
@@ -114,12 +114,12 @@ export default function TourFormDialog({
     getSeasonTemplates();
   });
 
-  function resetAndClose() {
+  function resetAndClose(safed?: boolean) {
     setTourName(tour?.name);
     setTourComment(tour?.comment);
     setTourFrom(tour?.from ? new Date(tour?.from) : null);
     setTourUntil(tour?.until ? new Date(tour?.until) : null);
-    setTourActive(tour?.active ?? true);
+    setTourActive(safed ? tourActive : !!tour?.active);
     setTourVillageIds(
       tour?.villages.map((village) => village.village_id.toString()) ?? []
     );
@@ -176,7 +176,7 @@ export default function TourFormDialog({
   }
 
   async function handleSave(tourId: number) {
-    if (!tourName || !tourFrom || !tourUntil || !tourVillages || !tourTemplateVersionId) {
+    if (!tourName || !tourFrom || !tourUntil || !tourVillages) {
       toast.error("Bitte fülle alle benötigten Felder aus");
       return;
     }
@@ -190,11 +190,11 @@ export default function TourFormDialog({
         until: tourUntil.toISOString(),
         active: tourActive,
         season_id: parseInt(params.seasonId as string),
-        tour_template_version_id: tourTemplateVersionId,
+        ...(tourTemplateVersionId && { tour_template_version_id: tourTemplateVersionId }),
       })
       .eq("id", tourId);
 
-    if (tourStatus !== 201) {
+    if (tourStatus !== 204) {
       toast.error(`Fehler: ${JSON.stringify(tourError)}`);
       return;
     }
@@ -204,9 +204,9 @@ export default function TourFormDialog({
     const { status: tourVillagesStatus, error: tourVillagesError } = await supabase
       .from("season_tour_villages")
       .insert([
-        ...tourVillages.map((village) => ({
+        ...tourVillageIds.map((villageId) => ({
           season_tour_id: tourId,
-          village_id: parseInt(village.value),
+          village_id: parseInt(villageId),
         })),
       ]);
 
@@ -216,7 +216,7 @@ export default function TourFormDialog({
     }
 
     toast.success(`Saison Tour erfolgreich bearbeitet`);
-    resetAndClose();
+    resetAndClose(true);
     setRefetch(!refetch);
   }
 
